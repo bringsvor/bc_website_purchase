@@ -283,24 +283,14 @@
                       </div>
 
                       <div class="row mt32">
-                          <div class="col-md-6">
-                              <!-- div class="row">
-                                  <label class="col-sm-5 text-right tooltip" >Your Contact:</label>
-                                  <div class="col-sm-7">
-                                      <div t-field="quotation.user_id" t-field-options='{
-                                          "widget": "contact",
-                                          "fields": ["name", "phone", "email"] TBRI
-                                          }'/>
-                                  </div>
-                              </div -->
                               <div class="row">
-                                  <label class="col-sm-5 text-right">Quote Date:</label>
-                                  <div class="col-sm-7">
+                                  <label class="col-sm-4">Please submit your bid no latter than:</label>
+                                  <div class="col-sm-2">
                                       <span t-field="quotation.date_order" t-field-options='{"format": "dd-MMMM-yyyy"}'/>
                                   </div>
+                                  <div class="col-sm-6" />
                                   <div class="clearfix"/>
                               </div>
-                          </div>
                       </div>
 
                       <!-- a id="offer"/>
