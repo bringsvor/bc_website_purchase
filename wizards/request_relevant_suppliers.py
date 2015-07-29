@@ -9,7 +9,6 @@ class request_relevant_suppliers(models.TransientModel):
     _description = "Purchase Requisition Suppliers"
 
     def _get_active_id(self):
-        print "GETTING ACTIVE_ID", self.env.context
         return self.env.context.get('active_id', False)
 
     name = fields.Char('What?')
@@ -138,31 +137,33 @@ class request_relevant_suppliers(models.TransientModel):
         active_id = self.env.context['active_id']
         _logger.info('create_order active_id %s' % active_id)
         tender = self.env['purchase.requisition'].browse(active_id)
-
-
+	sso = self.env['super.sales.order'].browse([tender.sso_id.id])
         prods = self.env['relevant_supplierinfo'].search([('relevant_suppliers','=',self.id)])
-
-
-
         _logger.info('create_order %s %s', self.id, prods)
-
-
 
         for si in prods:
             supplierinfo = si.read(['name', 'leadtime'])[0]
 
             _logger.info('create_order %s %s', tender, supplierinfo['name'])
-            leadtime = supplierinfo['leadtime']
+            si_leadtime = supplierinfo['leadtime']
             rfq_id = tender.make_purchase_order(supplierinfo['name'][0])
             _logger.info('create_order rfq %s', rfq_id)
+	    dict_products_leadtimes = {}
+	    for order_line in sso.order_line:
+		dict_products_leadtimes[order_line.product_id.id] = order_line.delay
             for rfq in rfq_id.values():
                 _logger.info('searching')
+				
                 # not great but
                 po = self.env['purchase.order'].search([('id', '=', rfq)])
                 po.write({'template_id': tender.template_id.id})
                 lines = self.env['purchase.order.line'].search([('order_id','=',rfq)])
-                _logger.info('Lines found %s', lines)
-                lines.write({'leadtime' : leadtime})
+		for po_line in lines:
+			if po_line.product_id.id in dict_products_leadtimes.keys():
+				leadtime = dict_products_leadtimes[po_line.product_id.id]
+			else:
+				leadtime = si_leadtime
+                	po_line.write({'leadtime' : leadtime})
 
         return {'type': 'ir.actions.act_window_close'}
 
