@@ -41,8 +41,7 @@
                       </td>
                       <td>
                           <div id="quote_qty">
-                              <span class="js_product_qty" t-field="line.product_qty"/>
-                              <span t-field="line.product_uom"/>
+                              <span class="js_product_qty text-right" t-field="line.product_qty"/>
                           </div>
                       </td>
 		      <td>

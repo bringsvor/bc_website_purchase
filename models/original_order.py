@@ -166,7 +166,6 @@ class purchase_order(osv.osv):
 
     def get_access_url(self, cr, uid, ids, context=None):
         object = self.pool['purchase.order'].browse(cr, uid, ids, context)
-        print "ACCESS TOKEN", object
 
         #def _get_access_link(self, cr, uid, mail, partner, context=None):
         # the parameters to encode for the query and fragment part of url
