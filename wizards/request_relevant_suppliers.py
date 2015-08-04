@@ -152,8 +152,6 @@ class request_relevant_suppliers(models.TransientModel):
 	    for order_line in sso.order_line:
 		dict_products_leadtimes[order_line.product_id.id] = order_line.delay
             for rfq in rfq_id.values():
-                _logger.info('searching')
-				
                 # not great but
                 po = self.env['purchase.order'].search([('id', '=', rfq)])
                 po.write({'template_id': tender.template_id.id})
@@ -163,7 +161,10 @@ class request_relevant_suppliers(models.TransientModel):
 				leadtime = dict_products_leadtimes[po_line.product_id.id]
 			else:
 				leadtime = si_leadtime
-                	po_line.write({'leadtime' : leadtime})
+			if po_line.product_id.default_code == 'SETUP':
+                		po_line.write({'leadtime' : leadtime,'product_qty': 0})
+			else:
+	                	po_line.write({'leadtime' : leadtime})
 
         return {'type': 'ir.actions.act_window_close'}
 
