@@ -24,8 +24,6 @@ $(".update_line.js_leadtime.input-group").each(function(index,element) {
 		formChanged = false;
 		}
 	});
-console.log('Control');
-console.log(formChanged);
 if (formChanged == false) {
 	$('#btnSave').addClass('disabled');
 	$('#btnSave').prop('disabled', true);
@@ -171,7 +169,7 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
                 	'price_unit': line_unit_prices,
                 	'leadtime': line_leadtimes,
 	                })
-        	        .then(function (data) {
+        	        .always(function (data) {
 				$(".update_line.js_unitprice.input-group").prop('disabled', true);
 				$(".update_line.js_leadtime.input-group").prop('disabled', true);
 			        location.reload();
