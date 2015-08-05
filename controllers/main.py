@@ -25,8 +25,12 @@ from openerp.addons.web.http import request
 import werkzeug
 import datetime
 import time
+import logging
+import base64
 
 from openerp.tools.translate import _
+
+_logger = logging.getLogger(__name__)
 
 class purchase_quote(http.Controller):
     @http.route([
@@ -68,8 +72,8 @@ class purchase_quote(http.Controller):
 	
         if request.session.get('view_quote',False)!=now:
         	request.session['view_quote'] = now
-       	body=_('Quotation viewed by supplier')
-       	self.__message_post(body, order_id, type='comment')
+       		body=_('Quotation viewed by supplier')
+       		self.__message_post(body, order_id, type='comment')
 
         # If the supplier is viewing this, he has received it. If he has received it it must be sent
         order_obj.signal_workflow(request.cr, SUPERUSER_ID, [order_id], 'send_rfq', context=request.context)
@@ -117,13 +121,42 @@ class purchase_quote(http.Controller):
         order_obj = request.registry.get('purchase.order')
         order = order_obj.browse(request.cr, SUPERUSER_ID, order_id)
         message = post.get('comment')
+	ufile = post.get('attachment')
+	attachment_ids = []
+	kwargs = {}
+
         if token != order.access_token:
             return request.website.render('website.404')
+
+        if ufile:
+            Model = request.session.model('ir.attachment')
+            try:
+                data_attach = {
+                    'name': ufile.filename,
+                    'datas': base64.encodestring(ufile.read()),
+                    'datas_fname': ufile.filename,
+                    'res_model': 'purchase.order',
+                    'res_id': int(order_id)
+                }
+                attachment_id = Model.create( data_attach, request.context)
+                args = {
+                    'filename': ufile.filename,
+                    'id':  attachment_id
+                }
+                #attachment_ids.append((0, 0, data_attach))
+                attachment_ids.append(attachment_id)
+                kwargs = { 'attachment_ids': attachment_ids }
+            except Exception:
+                args = {'error': "Something horrible happened"}
+                _logger.exception("Fail to upload attachment %s" % ufile.filename)
+                return werkzeug.utils.redirect("/purchase/%s/%s?message=0" % (order_id, token))
+
         if message:
-            self.__message_post(message, order_id, type='comment', subtype='mt_comment')
+            self.__message_post(message, order_id, type='comment', subtype='mt_comment',**kwargs)
         return werkzeug.utils.redirect("/purchase/%s/%s?message=1" % (order_id, token))
 
-    def __message_post(self, message, order_id, type='comment', subtype=False, attachments=[]):
+    # def __message_post(self, message, order_id, type='comment', subtype=False, attachments=[]):
+    def __message_post(self, message, order_id, type='comment', subtype=False, **kwargs):
         request.session.body =  message
         cr, uid, context = request.cr, request.uid, request.context
         user = request.registry['res.users'].browse(cr, SUPERUSER_ID, uid, context=context)
@@ -134,7 +167,11 @@ class purchase_quote(http.Controller):
                     subtype=subtype,
                     author_id=user.partner_id.id,
                     context=context,
-                    attachments=attachments
+                    attachments=None,
+		    parent_id=False,
+		    subject=None,
+		    content_subtype='html',
+		    **kwargs
                 )
             request.session.body = False
         return True

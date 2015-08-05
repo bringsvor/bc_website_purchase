@@ -2,10 +2,30 @@ $(function () {
 'use strict';
 var website = openerp.website;
 var color = $('#btnSubmit').css('background-color');
-console.log('Color');
-console.log(color);
 $('.columnID').css("visibility","hidden");
 $('#quotation_id').css("visibility","hidden");
+
+website.ready().done( function() {
+    $('.bc_attachment_url').each( function( index, element ) {
+        var attachment_id = $(element).attr("attachment_id");
+        var message_id =  $(element).attr("message_id");
+        console.log("attachment_id:",attachment_id);
+        console.log("message_id:",message_id);
+        console.log("openerp:",website);
+        var url = openerp.website.session.url('/mail/download_attachment', {
+                'model': 'mail.message',
+                'id': message_id,
+                'method': 'download_attachment',
+                'attachment_id': attachment_id
+            });
+    //        var url = "empty";
+        console.log("url:",url);
+        $(element).attr("href", url);
+    });
+} );
+
+
+
 var formChanged = true;
 $(".update_line.js_unitprice.input-group").each(function(index,element) {
 	$(element).numericInput({
@@ -139,6 +159,10 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	var line_leadtimes = [];
 	var line_update = []
 	var i = 0;
+	$(".update_line.js_unitprice.input-group").prop('disabled', true);
+	$(".update_line.js_leadtime.input-group").prop('disabled', true);
+
+	$('#bc_website_purchase_po_state').text('Bid Received');
 
 	// Reads quotation lines IDs	
 	$('.columnID').each(function(index,element) {
@@ -169,14 +193,16 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
                 	'price_unit': line_unit_prices,
                 	'leadtime': line_leadtimes,
 	                })
-        	        .always(function (data) {
+        	        .then(function (data) {
 				$(".update_line.js_unitprice.input-group").prop('disabled', true);
 				$(".update_line.js_leadtime.input-group").prop('disabled', true);
 			        location.reload();
 	                });
 		}
-
-	location.reload();
+	// setTimeout(location.reload,5000);
+	for (i = 0; i < 100; i++) {
+		location.reload();
+		}
         return false;
 	
 	});

@@ -116,6 +116,18 @@
                               <span t-field="message.author_id"/> <small>on <span t-field="message.date"/></small>
                           </h5>
                           <div t-field="message.body"/>
+                          <t t-foreach="message.attachment_ids" t-as="attachment">
+                                    <a t-att-href="attachment.url" class="bc_attachment_url" t-att-message_id="message.id" t-att-attachment_id="attachment.id" target="_blank">
+                                        <img t-att-src="'/mail/static/src/img/mimetypes/' + attachment.file_type_icon + '.png'"></img>
+<!--
+                                        <t t-if="attachment.file_type_icon === 'webimage'">
+                                            <img t-att-src="widget.attachments_resize_image(attachment.id, [100,80])"></img>
+                                        </t>
+-->
+                                        <div class='oe_name'><t t-raw='attachment.name' /><t t-raw='attachment.url' /></div>
+                                    </a>
+                          </t>
+
                       </div>
                   </div>
               </li>
@@ -128,11 +140,24 @@
   <template id="opt_quotation_chatter_post_complete_comment" name="Allow Comments" customize_show="True" inherit_id="bc_website_purchase.chatter">
       <xpath expr="//h1" position="after">
           <section class="mb32 css_editable_mode_hidden hidden-print">
-              <form id="comment" t-attf-action="/purchase/#{quotation.id}/#{quotation.access_token}/post" method="POST">
+              <form id="comment" t-attf-action="/purchase/#{quotation.id}/#{quotation.access_token}/post" method="POST" enctype="multipart/form-data">
                   <img class="img pull-left img-rounded" t-att-src="website.image_url(user_id.partner_id, 'image_small')" style="width: 50px; margin-right: 10px;"/>
                   <div class="pull-left mb32" style="width: 75%%">
                       <textarea rows="4" name="comment" class="form-control" placeholder="Send us a note..."></textarea>
 		      <!-- t t-call="chatter.compose_message.add_attachment"/ -->
+                      <span class="oe_attachment_file">
+                        <span class="oe_add">
+                            <!-- uploader of file -->
+                            <span class='oe_attach_label'>Attach a File</span>
+                            <div t-attf-class="oe_hidden_input_file #{fileupload_class or ''}" t-att-style="fileupload_style">
+                                <input type="hidden" name="callback" t-att-value="fileupload_id"/>
+                                <t t-raw="0"/>
+                                <input type="file" class="oe_form_binary_file" name="attachment"/>
+                                <!--<input type="hidden" name="session_id" t-att-value="widget.session.session_id"/>-->
+                            </div>
+                        </span>
+		      </span>
+
                       <button type="submit" class="btn btn-primary mt8">Send</button>
                   </div>
               </form>
@@ -213,7 +238,7 @@
                           <span t-if="quotation.state in ('draft','sent','cancel')">Quotation</span>
                           <span t-if="quotation.state not in ('draft','sent','cancel')">Order</span>
                           <em t-esc="quotation.name"/>
-                          <small t-field="quotation.state" />
+                          <small id="bc_website_purchase_po_state" t-field="quotation.state" />
                       </h1>
 
                       <div class="modal fade" id="modelaccept" role="dialog" aria-hidden="true">

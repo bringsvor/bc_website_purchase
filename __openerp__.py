@@ -19,6 +19,9 @@ GURBA
     'demo': [
         # 'data/website_quotation_demo.xml'
     ],
-    'qweb': ['static/src/xml/*.xml'],
+    'qweb': [
+	'static/xml/*.xml',
+	'static/src/xml/*.xml'
+	],
     'installable': True,
 }
