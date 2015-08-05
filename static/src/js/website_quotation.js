@@ -162,6 +162,12 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	$(".update_line.js_unitprice.input-group").prop('disabled', true);
 	$(".update_line.js_leadtime.input-group").prop('disabled', true);
 
+        $('#btnSave').addClass('disabled');
+        $('#btnSave').prop('disabled', true);
+        $('#btnSubmit').addClass('disabled');
+        $('#btnSubmit').prop('disabled', true);
+
+
 	$('#bc_website_purchase_po_state').text('Bid Received');
 
 	// Reads quotation lines IDs	
@@ -196,13 +202,13 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
         	        .then(function (data) {
 				$(".update_line.js_unitprice.input-group").prop('disabled', true);
 				$(".update_line.js_leadtime.input-group").prop('disabled', true);
-			        location.reload();
+			        // location.reload();
 	                });
 		}
 	// setTimeout(location.reload,5000);
-	for (i = 0; i < 100; i++) {
-		location.reload();
-		}
+	// for (i = 0; i < 100; i++) {
+	//	location.reload();
+	//	}
         return false;
 	
 	});
