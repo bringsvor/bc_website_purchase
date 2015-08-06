@@ -7,6 +7,7 @@
       <!-- link rel="stylesheet" type="text/css" href="/bc_website_purchase/static/src/css/website_quotation.css" / -->
       <script type="text/javascript" src="/bc_website_purchase/static/src/js/website_quotation.js"></script>
       <script type="text/javascript" src="/bc_website_purchase/static/src/js/numericInput.min.js"></script>
+      <script type="text/javascript" src="/bc_website_purchase/static/src/js/jquery.blockUI.js"></script>
     </xpath>
   </template>
 

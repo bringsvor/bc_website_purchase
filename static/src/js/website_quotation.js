@@ -159,6 +159,7 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	var line_leadtimes = [];
 	var line_update = []
 	var i = 0;
+
 	$(".update_line.js_unitprice.input-group").prop('disabled', true);
 	$(".update_line.js_leadtime.input-group").prop('disabled', true);
 
@@ -189,22 +190,49 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 		});
 
 	var i = 0;
-	for ( i = 0; i < line_ids.length ; i++) {
-		console.log(line_ids[i]);
-		console.log(line_unit_prices[i]);
-		console.log(line_leadtimes[i]);
-        	openerp.jsonRpc("/purchase/update_line", 'call', {
-                	'order_id': quotation_id,
-                	'line_id': line_ids,
-                	'price_unit': line_unit_prices,
-                	'leadtime': line_leadtimes,
-	                })
-        	        .then(function (data) {
-				$(".update_line.js_unitprice.input-group").prop('disabled', true);
-				$(".update_line.js_leadtime.input-group").prop('disabled', true);
-			        location.reload();
-	                });
-		}
+
+        $.blockUI({ css: { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .5, 
+            color: '#fff' 
+        } }); 
+
+	console.log('Quotation ID');
+	console.log(quotation_id);
+	console.log(line_ids);
+	console.log(line_unit_prices);
+	console.log(line_leadtimes);
+       	openerp.jsonRpc("/purchase/update_line", 'call', {
+               	'order_id': quotation_id,
+               	'line_id': line_ids,
+               	'price_unit': line_unit_prices,
+               	'leadtime': line_leadtimes,
+                })
+       	        .then(function (data) {
+			$(".update_line.js_unitprice.input-group").prop('disabled', true);
+			$(".update_line.js_leadtime.input-group").prop('disabled', true);
+		        // location.reload();
+                });
+
+	//for ( i = 0; i < line_ids.length ; i++) {
+        //	openerp.jsonRpc("/purchase/update_line", 'call', {
+        //        	'order_id': quotation_id,
+        //        	'line_id': line_ids,
+        //        	'price_unit': line_unit_prices,
+        //        	'leadtime': line_leadtimes,
+	//                })
+        //	        .then(function (data) {
+	//			$(".update_line.js_unitprice.input-group").prop('disabled', true);
+	//			$(".update_line.js_leadtime.input-group").prop('disabled', true);
+	//                });
+	//	}
+
+	setTimeout($.unblockUI, 5000); 
+	// location.reload();
 	// setTimeout(location.reload,5000);
 	// for (i = 0; i < 100; i++) {
 	//	location.reload();

@@ -185,6 +185,7 @@ class purchase_quote(http.Controller):
 	order = order_obj.browse(request.cr, SUPERUSER_ID or request.uid, order_id)
 	if order.state not in ('draft','sent'):
         	return False
+	# import pdb;pdb.set_trace()
 
 	for i in range(len(post['line_id'])):	
 		line_id = post['line_id'][i]
