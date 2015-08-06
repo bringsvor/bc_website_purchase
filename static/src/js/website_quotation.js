@@ -202,7 +202,7 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
         	        .then(function (data) {
 				$(".update_line.js_unitprice.input-group").prop('disabled', true);
 				$(".update_line.js_leadtime.input-group").prop('disabled', true);
-			        // location.reload();
+			        location.reload();
 	                });
 		}
 	// setTimeout(location.reload,5000);
