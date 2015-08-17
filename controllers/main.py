@@ -49,19 +49,18 @@ class purchase_quote(http.Controller):
         if token:
             if token != order.access_token:
                 return request.website.render('website.404')
-            # Log only once a day
             if request.session.get('view_quote',False)!=now:
                 request.session['view_quote'] = now
                 body=_('Quotation viewed by supplier ')
                 self.__message_post(body, order_id, type='comment')
 
+	"""
         if token is None and ( request.uid==user.id and user.active==False ):
         	if request.env.ref('web.login', False):
 	               values = request.params.copy() or {}
         	       values["redirect"] = "/purchase/%i" % (order_id);
 	               return request.render('web.login', values)
 
-        # Log only once a day
 	partner_id = user.partner_id.parent_id.id or user.partner_id.id
 	if partner_id and request.uid != SUPERUSER_ID:
 		if partner_id != order.partner_id.id:
@@ -69,6 +68,7 @@ class purchase_quote(http.Controller):
 	else:
 		if request.uid != SUPERUSER_ID:
 			return request.website.render('website.404')
+	"""
 	
         if request.session.get('view_quote',False)!=now:
         	request.session['view_quote'] = now
