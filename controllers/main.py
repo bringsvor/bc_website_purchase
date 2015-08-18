@@ -46,6 +46,7 @@ class purchase_quote(http.Controller):
         order_obj = request.registry.get('purchase.order')
         order = order_obj.browse(request.cr, token and SUPERUSER_ID or request.uid, order_id)
         now = time.strftime('%Y-%m-%d')
+	"""
         if token:
             if token != order.access_token:
                 return request.website.render('website.404')
@@ -53,9 +54,10 @@ class purchase_quote(http.Controller):
                 request.session['view_quote'] = now
                 body=_('Quotation viewed by supplier ')
                 self.__message_post(body, order_id, type='comment')
-
+	"""
 	
-        if token is None and ( request.uid==user.id and user.active==False ):
+        # if token is None and ( request.uid==user.id and user.active==False ):
+        if ( request.uid==user.id and user.active==False ):
         	if request.env.ref('web.login', False):
 	               values = request.params.copy() or {}
         	       values["redirect"] = "/purchase/%i" % (order_id);
