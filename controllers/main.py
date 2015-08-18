@@ -54,7 +54,7 @@ class purchase_quote(http.Controller):
                 body=_('Quotation viewed by supplier ')
                 self.__message_post(body, order_id, type='comment')
 
-	"""
+	
         if token is None and ( request.uid==user.id and user.active==False ):
         	if request.env.ref('web.login', False):
 	               values = request.params.copy() or {}
@@ -68,7 +68,7 @@ class purchase_quote(http.Controller):
 	else:
 		if request.uid != SUPERUSER_ID:
 			return request.website.render('website.404')
-	"""
+	
 	
         if request.session.get('view_quote',False)!=now:
         	request.session['view_quote'] = now
