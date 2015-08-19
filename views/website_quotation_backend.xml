@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
-        <record model="ir.ui.view" id="product_template_form_quote">
+        <!-- record model="ir.ui.view" id="product_template_form_quote">
             <field name="name">product.template.bc_website.form</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
@@ -10,7 +10,7 @@
 			<field name="ntty_url" />	
 		</field>
 	    </field>
-	</record>
+	</record -->
    
         <record model="ir.ui.view" id="purchase_order_form_quote">
             <field name="name">purchase.order.form.payment</field>
