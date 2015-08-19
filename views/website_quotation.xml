@@ -22,7 +22,7 @@
                       <th class="columnID">ID</th>
                       <th>Products</th>
                       <th>Quantity</th>
-                      <th>Scheduled Date</th>
+                      <!-- th>Scheduled Date</th -->
                       <th>Lead time</th>
                       <th class="text-right">Unit Price</th>
                       <th class="text-right">Price</th>
@@ -45,9 +45,9 @@
                               <span class="js_product_qty text-right" t-field="line.product_qty"/>
                           </div>
                       </td>
-		      <td>
+		      <!-- td>
 				<span t-field="line.date_planned" t-field-options='{"format": "dd-MMMM-yyyy"}'/>
-		      </td>
+		      </td -->
                       <td>
                               <div class="input-group mb32" style="width:100%" t-if="line.product_id.product_tmpl_id.type != 'service'">
                                   <input type="text" name="leadtime" class="update_line js_leadtime input-group" 
