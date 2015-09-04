@@ -38,7 +38,7 @@
                           <!-- a t-field="line.product_id.default_code + line.name"
 				 t-attf-href="http://{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/ -->
                           <a t-esc="line.name"
-				 t-attf-href="http://{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/>
+				 t-attf-href="{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/>
                       </td>
                       <td>
                           <div id="quote_qty">
@@ -309,7 +309,7 @@
 
                       <div class="row mt32">
                               <div class="row">
-                                  <label class="col-sm-4">Please submit your bid no latter than:</label>
+                                  <label class="col-sm-4">Please submit your bid no later than:</label>
                                   <div class="col-sm-2">
                                       <span t-field="quotation.date_order" t-field-options='{"format": "dd-MMMM-yyyy"}'/>
                                   </div>
