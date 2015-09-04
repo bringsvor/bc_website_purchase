@@ -22,6 +22,7 @@ class purchase_requisition(models.Model):
         sellers = [{'supplier': 1290, 'leadtime': 12}, {'supplier': 579, 'leadtime': 27}]
         vals['product_suppliers'] = [(0, 0, v) for v in sellers]
 
+	import  pdb;pdb.set_trace()
         wizard = self.env['requisition_suppliers'].create(vals=vals)
         print "WIZARD CREATED", wizard
         return wizard

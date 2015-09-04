@@ -150,7 +150,11 @@ class request_relevant_suppliers(models.TransientModel):
             _logger.info('create_order rfq %s', rfq_id)
 	    dict_products_leadtimes = {}
 	    for order_line in sso.order_line:
-		dict_products_leadtimes[order_line.product_id.id] = order_line.delay
+		# dict_products_leadtimes[order_line.product_id.id] = order_line.delay
+		if order_line.product_id.id not in dict_products_leadtimes.keys():
+			dict_products_leadtimes[order_line.product_id.id] = {order_line.product_qty: order_line.delay}
+		else:
+			dict_products_leadtimes[order_line.product_id.id].update({order_line.product_qty: order_line.delay})
             for rfq in rfq_id.values():
                 # not great but
                 po = self.env['purchase.order'].search([('id', '=', rfq)])
@@ -158,7 +162,7 @@ class request_relevant_suppliers(models.TransientModel):
                 lines = self.env['purchase.order.line'].search([('order_id','=',rfq)])
 		for po_line in lines:
 			if po_line.product_id.id in dict_products_leadtimes.keys():
-				leadtime = dict_products_leadtimes[po_line.product_id.id]
+				leadtime = dict_products_leadtimes[po_line.product_id.id].get(po_line.product_qty,si_leadtime)
 			else:
 				leadtime = si_leadtime
 			if po_line.product_id.default_code == 'SETUP':
