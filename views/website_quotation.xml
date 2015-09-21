@@ -310,10 +310,10 @@
                       <div class="row mt32">
                               <div class="row">
                                   <label class="col-sm-4">Please submit your bid no later than:</label>
-                                  <div class="col-sm-2">
-                                      <span t-field="quotation.date_order" t-field-options='{"format": "dd-MMMM-yyyy"}'/>
+                                  <div class="col-sm-4">
+                                      <span t-field="quotation.date_order" t-field-options='{"format": "dd-MMMM-yyyy HH:mm:ss zzz"}'/>
                                   </div>
-                                  <div class="col-sm-6" />
+                                  <div class="col-sm-4" />
                                   <div class="clearfix"/>
                               </div>
                       </div>
