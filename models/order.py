@@ -9,6 +9,12 @@ class purchase_order_line(models.Model):
     _inherit = "purchase.order.line"
 
     leadtime = fields.Integer('Leadtime', default=10, help='Requested leadtime in days.')
+    units_shipped = fields.Integer('Units Shipped', help='Units Shipped')
+    weight = fields.Integer('Weight', help='Weight')
+    collies = fields.Integer('# Collies', help='# Collies')
+    units_in_stock = fields.Integer('Units in Stock', help='Units in Stock')
+    batch_number = fields.Integer('Batch Number', help='Batch Number')
+    date_code = fields.Char('Date Code', help='Date Code')
 
 
 class purchase_requisition(models.Model):
@@ -22,9 +28,7 @@ class purchase_requisition(models.Model):
         sellers = [{'supplier': 1290, 'leadtime': 12}, {'supplier': 579, 'leadtime': 27}]
         vals['product_suppliers'] = [(0, 0, v) for v in sellers]
 
-	import  pdb;pdb.set_trace()
         wizard = self.env['requisition_suppliers'].create(vals=vals)
-        print "WIZARD CREATED", wizard
         return wizard
 
         ir_ui_view_osv = self.env['ir.ui.view']

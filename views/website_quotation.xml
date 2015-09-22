@@ -22,11 +22,15 @@
                       <th class="columnID">ID</th>
                       <th>Products</th>
                       <th>Quantity</th>
-                      <!-- th>Scheduled Date</th -->
+                      <th>Date Code</th>
                       <th>Lead time</th>
                       <th class="text-right">Unit Price</th>
                       <th class="text-right">Price</th>
-		      <!-- th></th -->
+		      <th class="text-right">Units Shipped</th>
+		      <th class="text-right">Weight</th>
+		      <th class="text-right">Collies</th>
+		      <th class="text-right">Units in Stock</th>
+		      <th class="text-right">Batch Number</th>
                   </tr>
               </thead>
               <tbody>
@@ -45,9 +49,9 @@
                               <span class="js_product_qty text-right" t-field="line.product_qty"/>
                           </div>
                       </td>
-		      <!-- td>
-				<span t-field="line.date_planned" t-field-options='{"format": "dd-MMMM-yyyy"}'/>
-		      </td -->
+		      <td>
+				<span t-field="line.date_code" />
+		      </td>
                       <td>
                               <div class="input-group mb32" style="width:100%" t-if="line.product_id.product_tmpl_id.type != 'service'">
                                   <input type="text" name="leadtime" class="update_line js_leadtime input-group" 
@@ -72,6 +76,11 @@
                               t-field-options='{"widget": "monetary", "display_currency": "quotation.pricelist_id.currency_id",
 						"from_currency": "quotation.pricelist_id.currency_id"}'/>
                       </td>
+                      <td />
+                      <td />
+                      <td />
+                      <td />
+                      <td />
                   </tr>
                   <!-- tr>
                       <td></td><td></td><td></td><td /><td />
