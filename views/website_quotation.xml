@@ -26,11 +26,13 @@
                       <th>Lead time</th>
                       <th class="text-right">Unit Price</th>
                       <th class="text-right">Price</th>
-		      <th class="text-right">Units Shipped</th>
-		      <th class="text-right">Weight</th>
-		      <th class="text-right">Collies</th>
-		      <th class="text-right">Units in Stock</th>
-		      <th class="text-right">Batch Number</th>
+	      	       <div t-if="quotation.state in ('confirmed ','approved')">
+			      <th class="text-right">Units Shipped</th>
+			      <th class="text-right">Weight</th>
+			      <th class="text-right">Collies</th>
+			      <th class="text-right">Units in Stock</th>
+			      <th class="text-right">Batch Number</th>
+			</div>
                   </tr>
               </thead>
               <tbody>
@@ -76,11 +78,13 @@
                               t-field-options='{"widget": "monetary", "display_currency": "quotation.pricelist_id.currency_id",
 						"from_currency": "quotation.pricelist_id.currency_id"}'/>
                       </td>
-                      <td />
-                      <td />
-                      <td />
-                      <td />
-                      <td />
+			<div t-if="quotation.state in ('confirmed','approved')">
+	                      <td><span t-field="line.units_shipped" /> </td>
+        	              <td><span t-field="line.weight" /> </td>
+                	      <td><span t-field="line.collies" /> </td>
+	                      <td><span t-field="line.units_in_stock" /> </td>
+        	              <td><span t-field="line.batch_number" /> </td>
+			</div>
                   </tr>
                   <!-- tr>
                       <td></td><td></td><td></td><td /><td />
@@ -245,7 +249,7 @@
                       <a id="introduction"/>
                       <h1 class="page-header mt16">
 			  <span t-field="quotation.id" id="quotation_id" />
-                          <span t-if="quotation.state in ('draft','sent','cancel')">Quotation</span>
+                          <!-- span t-if="quotation.state in ('draft','sent','cancel')">Quotation</span -->
                           <span t-if="quotation.state not in ('draft','sent','cancel')">Order</span>
                           <em t-esc="quotation.name"/>
                           <small id="bc_website_purchase_po_state" t-field="quotation.state" />
@@ -320,7 +324,7 @@
                               <div class="row">
                                   <label class="col-sm-4">Please submit your bid no later than:</label>
                                   <div class="col-sm-4">
-                                      <span t-field="quotation.date_order" t-field-options='{"format": "dd-MMMM-yyyy HH:mm:ss zzz"}'/>
+                                      <span t-field="quotation.date_order" t-field-options='{"format": "dd-MMMM-yyyy HH:mm:ss"}'/>
                                   </div>
                                   <div class="col-sm-4" />
                                   <div class="clearfix"/>
