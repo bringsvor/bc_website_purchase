@@ -20,18 +20,20 @@
               <thead>
                   <tr>
                       <th class="columnID">ID</th>
-                      <th>Products</th>
-                      <th>Quantity</th>
-                      <th>Date Code</th>
-                      <th>Lead time</th>
-                      <th class="text-right">Unit Price</th>
-                      <th class="text-right">Price</th>
+                      <th class="col-md-2">Products</th>
+                      <th class="col-md-2">Quantity</th>
+	      	      <div t-if="quotation.state in ('confirmed ','approved')">
+                      	<th class="col-md-2">Date Code</th>
+		      </div>
+                      <th class="col-md-2">Lead time</th>
+                      <th class="text-right col-md-2">Unit Price</th>
+                      <th class="text-right col-md-2">Price</th>
 	      	       <div t-if="quotation.state in ('confirmed ','approved')">
-			      <th class="text-right">Units Shipped</th>
-			      <th class="text-right">Weight</th>
-			      <th class="text-right">Collies</th>
-			      <th class="text-right">Units in Stock</th>
-			      <th class="text-right">Batch Number</th>
+			      <th class="text-right col-md-2">Units Shipped</th>
+			      <th class="text-right col-md-2">Weight</th>
+			      <th class="text-right col-md-2">Collies</th>
+			      <th class="text-right col-md-2">Units in Stock</th>
+			      <th class="text-right col-md-2">Batch Number</th>
 			</div>
                   </tr>
               </thead>
@@ -40,38 +42,46 @@
                       <td class="columnID">
                           <span t-field="line.id" />
                       </td>
-                      <td>
+                      <td class="col-md-2">
                           <!-- a t-field="line.product_id.default_code + line.name"
 				 t-attf-href="http://{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/ -->
                           <a t-esc="line.name"
 				 t-attf-href="{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/>
                       </td>
-                      <td>
+                      <td  class="col-md-2">
                           <div id="quote_qty">
                               <span class="js_product_qty text-right" t-field="line.product_qty"/>
                           </div>
                       </td>
-		      <td>
-				<span t-field="line.date_code" />
-		      </td>
-                      <td>
-                              <div class="input-group mb32" style="width:100%" t-if="line.product_id.product_tmpl_id.type != 'service'">
+	      	      <div t-if="quotation.state in ('confirmed ','approved')">
+		      		<td class="col-md-2">
+					<span t-field="line.date_code" />
+			      </td>
+		      </div>
+                      <td class="col-md-2">
+                              <div class="input-group" style="width:100%" t-if="quotation.state in ('draft','sent','cancel') and line.product_id.product_tmpl_id.type != 'service'">
                                   <input type="text" name="leadtime" class="update_line js_leadtime input-group" 
 					t-att-value="line.leadtime"/>
                               </div>
                               <div t-if="line.product_id.product_tmpl_id.type == 'service'">
                                  	<span>N/A</span>
                               </div>
+				<!-- div t-if="quotation.state not in ('draft','sent','cancel')">	
+					<td><span t-field="line.leadtime" /></td>
+				</div -->
                       </td>
-                      <td>
-			      <div class="input-group mb32" style="width: 100%">
+                      <td class="col-md-2">
+			      <div class="input-group" style="width: 100%" t-if="quotation.state in ('draft','sent','cancel')">
                       		<input type="text" name="price_unit" class="update_line js_unitprice input-group"  
 					t-att-value="line.price_unit" 
 					t-field-options='{"widget": "monetary",
 					"display_currency": "line.order_id.partner_id.property_product_pricelist.currency_id"}'/>
                               </div>
+				<div t-if="quotation.state not in ('draft','sent','cancel')">	
+					<td><span t-field="line.leadtime" /></td>
+				</div>
                       </td>
-                      <td t-att-data="line.id">
+                      <td t-att-data="line.id" class="col-md-2">
                           <div class="js_line_subtotal text-right output-group"
                               t-field="line.price_subtotal"
                               t-att-data="line.id"
@@ -79,11 +89,11 @@
 						"from_currency": "quotation.pricelist_id.currency_id"}'/>
                       </td>
 			<div t-if="quotation.state in ('confirmed','approved')">
-	                      <td><span t-field="line.units_shipped" /> </td>
-        	              <td><span t-field="line.weight" /> </td>
-                	      <td><span t-field="line.collies" /> </td>
-	                      <td><span t-field="line.units_in_stock" /> </td>
-        	              <td><span t-field="line.batch_number" /> </td>
+	                      <td class="col-md-2 text-right"><span t-field="line.units_shipped" /> </td>
+        	              <td class="col-md-2 text-right"><span t-field="line.weight" /> </td>
+                	      <td class="col-md-2 text-right"><span t-field="line.collies" /> </td>
+	                      <td class="col-md-2 text-right"><span t-field="line.units_in_stock" /> </td>
+        	              <td class="col-md-2 text-right"><span t-field="line.batch_number" /> </td>
 			</div>
                   </tr>
                   <!-- tr>
@@ -202,7 +212,7 @@
         <body data-spy="scroll" data-target=".navspy" data-offset="50">
             <div class="container o_bc_website_purchase">
               <div class="row mt16">
-                  <div class="col-md-3">
+                  <!-- div class="col-md-1">
                       <div class="bs-sidebar">
                           <hr class="mt0 mb0"/>
                           <t t-call="bc_website_purchase.navigation_menu"/>
@@ -234,8 +244,8 @@
                               </div>
                          </div>
                       </div>
-                  </div>
-                  <div class="col-md-9">
+                  </div -->
+                  <div class="col-md-12">
                       <div class="alert alert-success alert-dismissable" t-if="message==1">
                           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&amp;times;</button>
                           Your message has been successfully sent!
@@ -249,7 +259,7 @@
                       <a id="introduction"/>
                       <h1 class="page-header mt16">
 			  <span t-field="quotation.id" id="quotation_id" />
-                          <!-- span t-if="quotation.state in ('draft','sent','cancel')">Quotation</span -->
+                          <span t-if="quotation.state in ('draft','sent','cancel')">Document</span>
                           <span t-if="quotation.state not in ('draft','sent','cancel')">Order</span>
                           <em t-esc="quotation.name"/>
                           <small id="bc_website_purchase_po_state" t-field="quotation.state" />
