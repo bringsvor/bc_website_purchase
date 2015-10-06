@@ -61,6 +61,7 @@
                       <td class="col-md-2">
                               <div class="input-group" style="width:100%" t-if="quotation.state in ('draft','sent','cancel') and line.product_id.product_tmpl_id.type != 'service'">
                                   <input type="text" name="leadtime" class="update_line js_leadtime input-group" 
+					size="4"
 					t-att-value="line.leadtime"/>
                               </div>
                               <div t-if="line.product_id.product_tmpl_id.type == 'service'">
@@ -74,6 +75,7 @@
 			      <div class="input-group" style="width: 100%" t-if="quotation.state in ('draft','sent','cancel')">
                       		<input type="text" name="price_unit" class="update_line js_unitprice input-group"  
 					t-att-value="line.price_unit" 
+					size="4"
 					t-field-options='{"widget": "monetary",
 					"display_currency": "line.order_id.partner_id.property_product_pricelist.currency_id"}'/>
                               </div>
@@ -85,15 +87,44 @@
                           <div class="js_line_subtotal text-right output-group"
                               t-field="line.price_subtotal"
                               t-att-data="line.id"
+				size="4"
                               t-field-options='{"widget": "monetary", "display_currency": "quotation.pricelist_id.currency_id",
 						"from_currency": "quotation.pricelist_id.currency_id"}'/>
                       </td>
-			<div t-if="quotation.state in ('confirmed','approved')">
+			<div t-if="quotation.state in ('draft','bid-received')">
 	                      <td class="col-md-2 text-right"><span t-field="line.units_shipped" /> </td>
         	              <td class="col-md-2 text-right"><span t-field="line.weight" /> </td>
                 	      <td class="col-md-2 text-right"><span t-field="line.collies" /> </td>
 	                      <td class="col-md-2 text-right"><span t-field="line.units_in_stock" /> </td>
         	              <td class="col-md-2 text-right"><span t-field="line.batch_number" /> </td>
+			</div>
+			<div t-if="quotation.state in ('confirmed','approved')">
+	                      <td>
+                                  <input type="text" name="units_shipped" 
+					class="update_line js_units_shipped input-group" 
+					size="4"
+					t-att-value="line.units_shipped"/>
+			      </td>
+        	              <td> 
+                                  <input type="text" name="weight" class="update_line js_weight input-group" 
+					size="4"
+					t-att-value="line.weight"/>
+			      </td>
+        	              <td> 
+                                  <input type="text" name="collies" class="update_line js_collies input-group" 
+					size="4"
+					t-att-value="line.collies"/>
+			      </td>
+        	              <td> 
+                                  <input type="text" name="units_in_stock" class="update_line js_units_in_stock input-group" 
+					size="4"
+					t-att-value="line.units_in_stock"/>
+			      </td>
+        	              <td> 
+                                  <input type="text" name="batch_number" class="update_line js_batch_number input-group" 
+					size="4"
+					t-att-value="line.batch_number"/>
+			      </td>
 			</div>
                   </tr>
                   <!-- tr>
