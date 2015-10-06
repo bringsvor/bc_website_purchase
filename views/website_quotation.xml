@@ -29,6 +29,7 @@
                       <th class="text-right col-md-2">Unit Price</th>
                       <th class="text-right col-md-2">Price</th>
 	      	       <div t-if="quotation.state in ('confirmed ','approved')">
+				<th class="col-md-2" />
 			      <th class="text-right col-md-2">Units Shipped</th>
 			      <th class="text-right col-md-2">Weight</th>
 			      <th class="text-right col-md-2">Collies</th>
@@ -101,27 +102,27 @@
 			<div t-if="quotation.state in ('confirmed','approved')">
 	                      <td>
                                   <input type="text" name="units_shipped" 
-					class="update_line js_units_shipped input-group" 
+					class="update_line js_units_shipped input-group text-right" 
 					size="4"
 					t-att-value="line.units_shipped"/>
 			      </td>
         	              <td> 
-                                  <input type="text" name="weight" class="update_line js_weight input-group" 
+                                  <input type="text" name="weight" class="update_line js_weight input-group text-right" 
 					size="4"
 					t-att-value="line.weight"/>
 			      </td>
         	              <td> 
-                                  <input type="text" name="collies" class="update_line js_collies input-group" 
+                                  <input type="text" name="collies" class="update_line js_collies input-group text-right" 
 					size="4"
 					t-att-value="line.collies"/>
 			      </td>
         	              <td> 
-                                  <input type="text" name="units_in_stock" class="update_line js_units_in_stock input-group" 
+                                  <input type="text" name="units_in_stock" class="update_line js_units_in_stock input-group text-right" 
 					size="4"
 					t-att-value="line.units_in_stock"/>
 			      </td>
         	              <td> 
-                                  <input type="text" name="batch_number" class="update_line js_batch_number input-group" 
+                                  <input type="text" name="batch_number" class="update_line js_batch_number input-group text-right" 
 					size="4"
 					t-att-value="line.batch_number"/>
 			      </td>
@@ -223,18 +224,29 @@
 
   <template id="quotation_toolbar">
       <div class="text-center hidden-print" t-if="quotation.state in ('draft', 'sent', 'waiting_date')">
-          <a class="btn btn-success fa fa-check" data-toggle="modal" id="btnSubmit">
-              Submit
-          </a>
+	  <a class="btn btn-success fa fa-check" data-toggle="modal" id="btnSubmit">
+        	      Submit
+	  </a>
           <a class="btn btn-warning fa fa-floppy-o" type="submit" id="btnSave">
               Save
           </a>
 	  <a class="btn btn-info fa fa-comment" type="submit" id="btnCalc" href="#discussion">
               Calc
 	  </a>
-          <a class="btn btn-danger fa fa-times" data-toggle="modal" data-target="#modeldecline">
-              Decline
+         <a class="btn btn-danger fa fa-times" data-toggle="modal" data-target="#modeldecline">
+	       	      Decline
+         </a>
+      </div>
+      <div class="text-center hidden-print" t-if="quotation.state in ('confirmed','approved')">
+          <a class="btn btn-warning fa fa-floppy-o" type="submit" id="btnSave">
+              Save
           </a>
+	  <a class="btn btn-info fa fa-comment" type="submit" id="btnCalc" href="#discussion">
+              Calc
+	  </a>
+          <a class="btn btn-danger fa fa-times" data-toggle="modal" type="submit" id="btnPurchaseCancel">
+	      Cancel
+       	  </a>
       </div>
   </template>
 

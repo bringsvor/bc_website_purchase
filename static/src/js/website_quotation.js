@@ -36,6 +36,51 @@ $(".update_line.js_unitprice.input-group").each(function(index,element) {
 		formChanged = false;
 		}
 });
+$(".update_line.js_units_shipped.input-group").each(function(index,element) {
+	$(element).numericInput({
+		allowFloat: false, // Accpets positive numbers (floating point)
+		allowNegative: false // Accpets positive or negative integer
+	});
+        if ( !($(element).val())){
+		formChanged = false;
+		}
+});
+$(".update_line.js_weight.input-group").each(function(index,element) {
+	$(element).numericInput({
+		allowFloat: false, // Accpets positive numbers (floating point)
+		allowNegative: false // Accpets positive or negative integer
+	});
+        if ( !($(element).val())){
+		formChanged = false;
+		}
+});
+$(".update_line.js_collies.input-group").each(function(index,element) {
+	$(element).numericInput({
+		allowFloat: false, // Accpets positive numbers (floating point)
+		allowNegative: false // Accpets positive or negative integer
+	});
+        if ( !($(element).val())){
+		formChanged = false;
+		}
+});
+$(".update_line.js_units_in_stock.input-group").each(function(index,element) {
+	$(element).numericInput({
+		allowFloat: false, // Accpets positive numbers (floating point)
+		allowNegative: false // Accpets positive or negative integer
+	});
+        if ( !($(element).val())){
+		formChanged = false;
+		}
+});
+$(".update_line.js_batch_number.input-group").each(function(index,element) {
+	$(element).numericInput({
+		allowFloat: false, // Accpets positive numbers (floating point)
+		allowNegative: false // Accpets positive or negative integer
+	});
+        if ( !($(element).val())){
+		formChanged = false;
+		}
+});
 
 $(".update_line.js_leadtime.input-group").each(function(index,element) {
         var control_var = isNaN($(element).val());
@@ -44,6 +89,7 @@ $(".update_line.js_leadtime.input-group").each(function(index,element) {
 		formChanged = false;
 		}
 	});
+
 if (formChanged == false) {
 	$('#btnSave').addClass('disabled');
 	$('#btnSave').prop('disabled', true);
@@ -84,6 +130,13 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
    $('#btnCalc').hide();
 
    // Click on the submit button
+   $('#btnPurchaseCancel').on('click', function (ev) {
+	if (confirm("Close Window?")){
+		close();
+		}
+	});
+
+   // Click on the save button
    $('#btnSave').on('click', function (ev) {
 	console.log('Clicked Save Button');
 	if (formChanged == false) {
@@ -95,6 +148,11 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	var line_ids = [];
 	var line_unit_prices = [];
 	var line_leadtimes = [];
+	var line_units_shipped = [];
+	var line_weight = [];
+	var line_collies = [];
+	var line_units_in_stock = [];
+	var line_batch_number = [];
 	var line_update = []
 	var i = 0;
 
@@ -111,6 +169,38 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 		line_unit_prices.push(parseFloat($(element).val()));
 		});
 	console.log(line_unit_prices);
+
+	// Reads units_shipped
+	$('.update_line.js_units_shipped.input-group').each(function(index,element) {
+		line_units_shipped.push(parseFloat($(element).val()));
+		});
+	console.log('Units shipped');
+	console.log(line_units_shipped);
+
+	// Reads weight
+	$('.update_line.js_weight.input-group').each(function(index,element) {
+		line_weight.push(parseFloat($(element).val()));
+		});
+	console.log('Weight');
+	console.log(line_weight);
+
+	// Reads collies
+	$('.update_line.js_collies.input-group').each(function(index,element) {
+		line_collies.push(parseFloat($(element).val()));
+		});
+	console.log(line_collies);
+
+	// Reads units_in_stock
+	$('.update_line.js_units_in_stock.input-group').each(function(index,element) {
+		line_units_in_stock.push(parseFloat($(element).val()));
+		});
+	console.log(line_units_in_stock);
+
+	// Reads batch_number
+	$('.update_line.js_batch_number.input-group').each(function(index,element) {
+		line_batch_number.push(parseFloat($(element).val()));
+		});
+	console.log(line_batch_number);
 
 	// Reads quotation  prices
 	$('.update_line.js_leadtime.input-group').each(function(index,element) {
@@ -132,6 +222,11 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
                 	'line_id': line_ids,
                 	'price_unit': line_unit_prices,
                 	'leadtime': line_leadtimes,
+                	'units_shipped': line_units_shipped,
+                	'weight': line_weight,
+                	'collies': line_collies,
+                	'units_in_stock': line_units_in_stock,
+                	'batch_number': line_batch_number,
 	                })
         	        .then(function (data) {
 				$(".update_line.js_unitprice.input-group").prop('disabled', true);

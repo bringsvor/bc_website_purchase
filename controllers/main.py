@@ -214,9 +214,9 @@ class purchase_quote(http.Controller):
 	post_length = len(post['line_id'])
        	order_obj = request.registry.get('purchase.order')
 	order = order_obj.browse(request.cr, SUPERUSER_ID or request.uid, order_id)
-	if order.state not in ('draft','sent'):
+	if order.state not in ('draft','sent','confirmed','approved'):
         	return False
-
+	
 	for i in range(len(post['line_id'])):	
 		line_id = post['line_id'][i]
 		try:
@@ -224,11 +224,20 @@ class purchase_quote(http.Controller):
 		except:
 			leadtime = 0
 			pass
-		price_unit = post['price_unit'][i]
-		vals = {
-			'price_unit': price_unit,
-			'leadtime': leadtime,
-			}
+		if order.state in ('draft','sent'):	
+			price_unit = post['price_unit'][i]
+			vals = {
+				'price_unit': price_unit,
+				'leadtime': leadtime,
+				}
+		else:
+			vals = {
+				'units_shipped': post['units_shipped'][i],
+				'weight': post['weight'][i],
+				'collies': post['collies'][i],
+				'units_in_stock': post['units_in_stock'][i],
+				'batch_number': post['batch_number'][i],
+				}
 	        line_id=int(line_id)
 
         	order_line_obj = request.registry.get('purchase.order.line')
