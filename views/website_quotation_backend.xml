@@ -20,6 +20,12 @@
                 <xpath expr="//page[@string='Products']//tree/field[@name='date_planned']" position="after">
                     <field name="leadtime" />
                 </xpath>
+                <xpath expr="//page[@string='Products']//tree/field[@name='date_planned']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Products']//tree/field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
                 <xpath expr="//header/button[@name='print_quotation']" position="after">
                     <button name="open_quotation" string="View Quotation" type="object" />
                        <!-- attrs="{'invisible': [('template_id','=',False)]}"/ -->

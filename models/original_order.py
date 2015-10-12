@@ -116,6 +116,8 @@ class purchase_order_line(osv.osv):
         values = self._inject_quote_description(cr, uid, values, context)
         ret = super(purchase_order_line, self).create(cr, uid, values, context=context)
         # hack because create don t make the job for a related field
+	if values.get('delay') == False:
+            self.write(cr, uid, ret, {'leadtime': 0}, context=context)
         if values.get('website_description'):
             self.write(cr, uid, ret, {'website_description': values['website_description']}, context=context)
         return ret
