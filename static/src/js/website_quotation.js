@@ -41,45 +41,45 @@ $(".update_line.js_units_shipped.input-group").each(function(index,element) {
 		allowFloat: false, // Accpets positive numbers (floating point)
 		allowNegative: false // Accpets positive or negative integer
 	});
-        if ( !($(element).val())){
-		formChanged = false;
-		}
+        // if ( !($(element).val())){
+	//	formChanged = false;
+	//	}
 });
 $(".update_line.js_weight.input-group").each(function(index,element) {
 	$(element).numericInput({
 		allowFloat: false, // Accpets positive numbers (floating point)
 		allowNegative: false // Accpets positive or negative integer
 	});
-        if ( !($(element).val())){
-		formChanged = false;
-		}
+        //if ( !($(element).val())){
+	//	formChanged = false;
+	//	}
 });
 $(".update_line.js_collies.input-group").each(function(index,element) {
 	$(element).numericInput({
 		allowFloat: false, // Accpets positive numbers (floating point)
 		allowNegative: false // Accpets positive or negative integer
 	});
-        if ( !($(element).val())){
-		formChanged = false;
-		}
+        //if ( !($(element).val())){
+	//	formChanged = false;
+	//	}
 });
 $(".update_line.js_units_in_stock.input-group").each(function(index,element) {
 	$(element).numericInput({
 		allowFloat: false, // Accpets positive numbers (floating point)
 		allowNegative: false // Accpets positive or negative integer
 	});
-        if ( !($(element).val())){
-		formChanged = false;
-		}
+        //if ( !($(element).val())){
+	//	formChanged = false;
+	//	}
 });
 $(".update_line.js_batch_number.input-group").each(function(index,element) {
 	$(element).numericInput({
 		allowFloat: false, // Accpets positive numbers (floating point)
 		allowNegative: false // Accpets positive or negative integer
 	});
-        if ( !($(element).val())){
-		formChanged = false;
-		}
+        //if ( !($(element).val())){
+	//	formChanged = false;
+	//	}
 });
 
 $(".update_line.js_leadtime.input-group").each(function(index,element) {
@@ -213,6 +213,17 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 		});
 
 	var i = 0;
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        } });
+
+
 	for ( i = 0; i < line_ids.length ; i++) {
 		console.log(line_ids[i]);
 		console.log(line_unit_prices[i]);
@@ -234,6 +245,7 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 			        location.reload();
 	                });
 		}
+	setTimeout($.unblockUI, 5000); 
 
 	location.reload();
         return false;
