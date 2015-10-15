@@ -13,7 +13,7 @@ class purchase_order_line(models.Model):
     weight = fields.Integer('Weight', help='Weight')
     collies = fields.Integer('# Collies', help='# Collies')
     units_in_stock = fields.Integer('Units in Stock', help='Units in Stock')
-    batch_number = fields.Integer('Batch Number', help='Batch Number')
+    batch_number = fields.Char('Batch Number', help='Batch Number',size=24)
     date_code = fields.Char('Date Code', help='Date Code')
 
 

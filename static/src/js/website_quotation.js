@@ -72,15 +72,6 @@ $(".update_line.js_units_in_stock.input-group").each(function(index,element) {
 	//	formChanged = false;
 	//	}
 });
-$(".update_line.js_batch_number.input-group").each(function(index,element) {
-	$(element).numericInput({
-		allowFloat: false, // Accpets positive numbers (floating point)
-		allowNegative: false // Accpets positive or negative integer
-	});
-        //if ( !($(element).val())){
-	//	formChanged = false;
-	//	}
-});
 
 $(".update_line.js_leadtime.input-group").each(function(index,element) {
         var control_var = isNaN($(element).val());
@@ -198,8 +189,9 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 
 	// Reads batch_number
 	$('.update_line.js_batch_number.input-group').each(function(index,element) {
-		line_batch_number.push(parseFloat($(element).val()));
+		line_batch_number.push($(element).val());
 		});
+	console.log('Batch Number');
 	console.log(line_batch_number);
 
 	// Reads quotation  prices
