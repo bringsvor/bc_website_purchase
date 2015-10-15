@@ -22,14 +22,12 @@
                       <th class="columnID">ID</th>
                       <th class="col-md-2">Products</th>
                       <th class="col-md-2">Quantity</th>
-	      	      <div t-if="quotation.state in ('confirmed ','approved')">
-                      	<th class="col-md-2">Date Code</th>
-		      </div>
                       <th class="col-md-2">Lead time</th>
                       <th class="text-right col-md-2">Unit Price</th>
                       <th class="text-right col-md-2">Price</th>
 	      	       <div t-if="quotation.state in ('confirmed ','approved')">
 				<th class="col-md-2" />
+                      	      <th class="col-md-2">Date Code</th>
 			      <th class="text-right col-md-2">Units Shipped</th>
 			      <th class="text-right col-md-2">Weight</th>
 			      <th class="text-right col-md-2">Collies</th>
@@ -54,11 +52,6 @@
                               <span class="js_product_qty text-right" t-field="line.product_qty"/>
                           </div>
                       </td>
-	      	      <div t-if="quotation.state in ('confirmed ','approved')">
-		      		<td class="col-md-2">
-					<span t-field="line.date_code" />
-			      </td>
-		      </div>
                       <td class="col-md-2">
                               <div class="input-group" style="width:100%" t-if="quotation.state in ('draft','sent','cancel') and line.product_id.product_tmpl_id.type != 'service'">
                                   <input type="text" name="leadtime" class="update_line js_leadtime input-group" 
@@ -93,6 +86,7 @@
 						"from_currency": "quotation.pricelist_id.currency_id"}'/>
                       </td>
 			<div t-if="quotation.state in ('draft','bid-received')">
+	                      <td class="col-md-2 text-right"><span t-field="line.date_code" /> </td>
 	                      <td class="col-md-2 text-right"><span t-field="line.units_shipped" /> </td>
         	              <td class="col-md-2 text-right"><span t-field="line.weight" /> </td>
                 	      <td class="col-md-2 text-right"><span t-field="line.collies" /> </td>
@@ -100,6 +94,12 @@
         	              <td class="col-md-2 text-right"><span t-field="line.batch_number" /> </td>
 			</div>
 			<div t-if="quotation.state in ('confirmed','approved')">
+	                      <td>
+                                  <input type="text" name="date_code" 
+					class="update_line js_date_code input-group text-left" 
+					size="8"
+					t-att-value="line.date_code"/>
+			      </td>
 	                      <td>
                                   <input type="text" name="units_shipped" 
 					class="update_line js_units_shipped input-group text-right" 

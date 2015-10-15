@@ -232,11 +232,13 @@ class purchase_quote(http.Controller):
 				}
 		else:
 			vals = {
+				'date_code': post['date_code'][i],
 				'units_shipped': post['units_shipped'][i],
 				'weight': post['weight'][i],
 				'collies': post['collies'][i],
 				'units_in_stock': post['units_in_stock'][i],
 				'batch_number': post['batch_number'][i],
+				'date_code': post['date_code'][i],
 				}
 	        line_id=int(line_id)
 

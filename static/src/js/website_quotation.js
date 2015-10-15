@@ -144,6 +144,7 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	var line_collies = [];
 	var line_units_in_stock = [];
 	var line_batch_number = [];
+	var line_date_code = [];
 	var line_update = []
 	var i = 0;
 
@@ -194,6 +195,13 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	console.log('Batch Number');
 	console.log(line_batch_number);
 
+	// Reads date_code
+	$('.update_line.js_date_code.input-group').each(function(index,element) {
+		line_date_code.push($(element).val());
+		});
+	console.log('Date Code');
+	console.log(line_date_code);
+
 	// Reads quotation  prices
 	$('.update_line.js_leadtime.input-group').each(function(index,element) {
 		if ( $(element).val() != 'N/A' ) {
@@ -230,6 +238,7 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
                 	'collies': line_collies,
                 	'units_in_stock': line_units_in_stock,
                 	'batch_number': line_batch_number,
+                	'date_code': line_date_code,
 	                })
         	        .then(function (data) {
 				$(".update_line.js_unitprice.input-group").prop('disabled', true);
