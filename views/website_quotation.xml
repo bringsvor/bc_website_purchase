@@ -16,7 +16,7 @@
           <h1 class="page-header">Pricing</h1>
       </section>
       <section id="quote">
-          <table class="table">
+          <table class="table table-bordered">
               <thead>
                   <tr>
                       <th class="columnID">ID</th>
@@ -26,7 +26,7 @@
                       <th class="text-right col-md-2">Unit Price</th>
                       <th class="text-right col-md-2">Price</th>
 	      	       <div t-if="quotation.state in ('confirmed ','approved')">
-				<th class="col-md-2" />
+				<!-- th class="col-md-2" / -->
                       	      <th class="col-md-2">Date Code</th>
 			      <th class="text-right col-md-2">Units Shipped</th>
 			      <th class="text-right col-md-2">Weight</th>
@@ -47,25 +47,22 @@
                           <a t-esc="line.name"
 				 t-attf-href="{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/>
                       </td>
-                      <td  class="col-md-2">
+                      <td  class="col-md-2 text-right">
                           <div id="quote_qty">
                               <span class="js_product_qty text-right" t-field="line.product_qty"/>
                           </div>
                       </td>
-                      <td class="col-md-2">
+                      <td class="col-md-2 text-right">
                               <div class="input-group" style="width:100%" t-if="quotation.state in ('draft','sent','cancel') and line.product_id.product_tmpl_id.type != 'service'">
                                   <input type="text" name="leadtime" class="update_line js_leadtime input-group" 
 					size="4"
 					t-att-value="line.leadtime"/>
                               </div>
-                              <div t-if="line.product_id.product_tmpl_id.type == 'service'">
-                                 	<span>N/A</span>
-                              </div>
-				<!-- div t-if="quotation.state not in ('draft','sent','cancel')">	
-					<td><span t-field="line.leadtime" /></td>
-				</div -->
+				<div t-if="quotation.state not in ('draft','sent','cancel')">	
+					<span t-field="line.leadtime" />
+				</div>
                       </td>
-                      <td class="col-md-2">
+                      <td class="col-md-2 text-right">
 			      <div class="input-group" style="width: 100%" t-if="quotation.state in ('draft','sent','cancel')">
                       		<input type="text" name="price_unit" class="update_line js_unitprice input-group"  
 					t-att-value="line.price_unit" 
@@ -74,7 +71,7 @@
 					"display_currency": "line.order_id.partner_id.property_product_pricelist.currency_id"}'/>
                               </div>
 				<div t-if="quotation.state not in ('draft','sent','cancel')">	
-					<td><span t-field="line.leadtime" /></td>
+					<span t-field="line.price_unit" />
 				</div>
                       </td>
                       <td t-att-data="line.id" class="col-md-2">
@@ -482,3 +479,4 @@
 
 </data>
 </openerp>
+
