@@ -5,6 +5,40 @@ var color = $('#btnSubmit').css('background-color');
 $('.columnID').css("visibility","hidden");
 $('#quotation_id').css("visibility","hidden");
 
+function isDate(txtDate)
+{
+    var currVal = txtDate;
+    if(currVal == '')
+        return false;
+
+    var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/; //Declare Regex
+    var dtArray = currVal.match(rxDatePattern); // is format OK?
+
+    if (dtArray == null) 
+        return false;
+
+    //Checks for mm/dd/yyyy format.
+    var dtMonth = dtArray[3];
+    var dtDay= dtArray[5];
+    var dtYear = dtArray[1];        
+
+    if (dtMonth < 1 || dtMonth > 12) 
+        return false;
+    else if (dtDay < 1 || dtDay> 31) 
+        return false;
+    else if ((dtMonth==4 || dtMonth==6 || dtMonth==9 || dtMonth==11) && dtDay ==31) 
+        return false;
+    else if (dtMonth == 2) 
+    {
+        var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+        if (dtDay> 29 || (dtDay ==29 && !isleap)) 
+                return false;
+    }
+    return true;
+}
+
+
+
 website.ready().done( function() {
     $('.bc_attachment_url').each( function( index, element ) {
         var attachment_id = $(element).attr("attachment_id");
@@ -197,6 +231,12 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 
 	// Reads date_code
 	$('.update_line.js_date_code.input-group').each(function(index,element) {
+		if (!isDate($(element).val())){
+			alert('Date is invalid format - Format needs to be yyyy/mm/d');
+			return False;
+			};
+		console.log('Date code');
+		console.log($(element).val());
 		line_date_code.push($(element).val());
 		});
 	console.log('Date Code');
