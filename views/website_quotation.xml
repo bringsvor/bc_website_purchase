@@ -33,6 +33,7 @@
 			      <th class="text-right col-md-2">Collies</th>
 			      <th class="text-right col-md-2">Units in Stock</th>
 			      <th class="text-right col-md-2">Batch Number</th>
+			      <th class="text-right col-md-2">Tracking Number</th>
 			</div>
                   </tr>
               </thead>
@@ -89,6 +90,7 @@
                 	      <td class="col-md-2 text-right"><span t-field="line.collies" /> </td>
 	                      <td class="col-md-2 text-right"><span t-field="line.units_in_stock" /> </td>
         	              <td class="col-md-2 text-right"><span t-field="line.batch_number" /> </td>
+        	              <td class="col-md-2 text-right"><span t-field="line.tracking_number" /> </td>
 			</div>
 			<div t-if="quotation.state in ('confirmed','approved')">
 	                      <td>
@@ -122,6 +124,11 @@
                                   <input type="text" name="batch_number" class="update_line js_batch_number input-group text-right" 
 					size="6"
 					t-att-value="line.batch_number"/>
+			      </td>
+        	              <td> 
+                                  <input type="text" name="tracking_number" class="update_line js_tracking_number input-group text-right" 
+					size="6"
+					t-att-value="line.tracking_number"/>
 			      </td>
 			</div>
                   </tr>

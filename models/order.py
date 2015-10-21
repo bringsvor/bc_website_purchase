@@ -14,6 +14,7 @@ class purchase_order_line(models.Model):
     collies = fields.Integer('# Collies', help='# Collies')
     units_in_stock = fields.Integer('Units in Stock', help='Units in Stock')
     batch_number = fields.Char('Batch Number', help='Batch Number',size=24)
+    tracking_number = fields.Char('Tracking Number', help='Batch Number',size=12)
     date_code = fields.Char('Date Code', help='Date Code')
 
 

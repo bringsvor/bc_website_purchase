@@ -238,6 +238,7 @@ class purchase_quote(http.Controller):
 				'collies': post['collies'][i],
 				'units_in_stock': post['units_in_stock'][i],
 				'batch_number': post['batch_number'][i],
+				'tracking_number': post['tracking_number'][i],
 				'date_code': post['date_code'][i],
 				}
 	        line_id=int(line_id)

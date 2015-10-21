@@ -178,6 +178,7 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	var line_collies = [];
 	var line_units_in_stock = [];
 	var line_batch_number = [];
+	var line_tracking_number = [];
 	var line_date_code = [];
 	var line_update = []
 	var i = 0;
@@ -229,6 +230,13 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	console.log('Batch Number');
 	console.log(line_batch_number);
 
+	// Reads tracking_number
+	$('.update_line.js_tracking_number.input-group').each(function(index,element) {
+		line_tracking_number.push($(element).val());
+		});
+	console.log('Tracking Number');
+	console.log(line_tracking_number);
+
 	// Reads date_code
 	$('.update_line.js_date_code.input-group').each(function(index,element) {
 		if (!isDate($(element).val())){
@@ -278,6 +286,7 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
                 	'collies': line_collies,
                 	'units_in_stock': line_units_in_stock,
                 	'batch_number': line_batch_number,
+                	'tracking_number': line_tracking_number,
                 	'date_code': line_date_code,
 	                })
         	        .then(function (data) {
