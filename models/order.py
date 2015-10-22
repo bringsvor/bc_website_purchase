@@ -9,13 +9,13 @@ class purchase_order_line(models.Model):
     _inherit = "purchase.order.line"
 
     leadtime = fields.Integer('Leadtime', default=10, help='Requested leadtime in days.')
-    units_shipped = fields.Integer('Units Shipped', help='Units Shipped')
-    weight = fields.Integer('Weight', help='Weight')
-    collies = fields.Integer('# Collies', help='# Collies')
-    units_in_stock = fields.Integer('Units in Stock', help='Units in Stock')
-    batch_number = fields.Char('Batch Number', help='Batch Number',size=24)
-    tracking_number = fields.Char('Tracking Number', help='Batch Number',size=12)
-    date_code = fields.Char('Date Code', help='Date Code')
+    units_shipped = fields.Integer('Units Shipped', help='Units Shipped',default=0)
+    weight = fields.Integer('Weight', help='Weight',default=0)
+    collies = fields.Integer('# Collies', help='# Collies',default=0)
+    units_in_stock = fields.Integer('Units in Stock', help='Units in Stock',default=0)
+    batch_number = fields.Char('Batch Number', help='Batch Number',size=24,default='N/A')
+    tracking_number = fields.Char('Tracking Number', help='Batch Number',size=12,default='N/A')
+    date_code = fields.Char('Date Code', help='Date Code',default='1980/01/01')
 
 
 class purchase_requisition(models.Model):
