@@ -81,7 +81,7 @@ $(".update_line.js_units_shipped.input-group").each(function(index,element) {
 });
 $(".update_line.js_weight.input-group").each(function(index,element) {
 	$(element).numericInput({
-		allowFloat: false, // Accpets positive numbers (floating point)
+		allowFloat: true, // Accpets positive numbers (floating point)
 		allowNegative: false // Accpets positive or negative integer
 	});
         //if ( !($(element).val())){
