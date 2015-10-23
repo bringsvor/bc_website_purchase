@@ -38,7 +38,7 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr t-foreach="quotation.order_line" t-as="line">
+                  <tr t-foreach="quotation.order_line" t-as="line"><div t-if="line.is_autoline == False">
                       <td class="columnID">
                           <span t-field="line.id" />
                       </td>
@@ -131,7 +131,7 @@
 					t-att-value="line.tracking_number"/>
 			      </td>
 			</div>
-                  </tr>
+                  </div></tr>
                   <!-- tr>
                       <td></td><td></td><td></td><td /><td />
                       <td class="text-right"><strong>Subtotal:</strong></td>
