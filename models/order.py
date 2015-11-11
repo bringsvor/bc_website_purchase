@@ -16,6 +16,7 @@ class purchase_order_line(models.Model):
     batch_number = fields.Char('Batch Number', help='Batch Number',size=24,default='N/A')
     tracking_number = fields.Char('Tracking Number', help='Batch Number',size=12,default='N/A')
     date_code = fields.Char('Date Code', help='Date Code',default='1980/01/01')
+    expiry_date = fields.Char('Expiry Date', help='Expiry Date',default='1980/01/01')
 
 
 class purchase_requisition(models.Model):

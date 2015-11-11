@@ -27,7 +27,8 @@
                       <th class="text-right col-md-2">Price</th>
 	      	       <div t-if="quotation.state in ('confirmed ','approved')">
 				<!-- th class="col-md-2" / -->
-                      	      <th class="col-md-2">Date Code</th>
+                      	      <th class="col-md-1">Date Code</th>
+                      	      <th class="col-md-1">Expiry Date</th>
 			      <th class="text-right col-md-2">Units Shipped</th>
 			      <th class="text-right col-md-2">Weight</th>
 			      <th class="text-right col-md-2">Collies</th>
@@ -84,7 +85,8 @@
 						"from_currency": "quotation.pricelist_id.currency_id"}'/>
                       </td>
 			<div t-if="quotation.state in ('draft','bid-received')">
-	                      <td class="col-md-2 text-right"><span t-field="line.date_code" /> </td>
+	                      <td class="col-md-1 text-right"><span t-field="line.date_code" /> </td>
+	                      <td class="col-md-1 text-right"><span t-field="line.expiry_date" /> </td>
 	                      <td class="col-md-2 text-right"><span t-field="line.units_shipped" /> </td>
         	              <td class="col-md-2 text-right"><span t-field="line.weight" /> </td>
                 	      <td class="col-md-2 text-right"><span t-field="line.collies" /> </td>
@@ -98,6 +100,12 @@
 					class="update_line js_date_code input-group text-left" 
 					size="8"
 					t-att-value="line.date_code"/>
+			      </td>
+	                      <td>
+                                  <input type="text" name="expiry_date" 
+					class="update_line js_expiry_date input-group text-left" 
+					size="8"
+					t-att-value="line.expiry_date"/>
 			      </td>
 	                      <td>
                                   <input type="text" name="units_shipped" 

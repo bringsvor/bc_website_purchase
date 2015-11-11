@@ -180,6 +180,7 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	var line_batch_number = [];
 	var line_tracking_number = [];
 	var line_date_code = [];
+	var line_expiry_date = [];
 	var line_update = []
 	var i = 0;
 
@@ -250,6 +251,19 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	console.log('Date Code');
 	console.log(line_date_code);
 
+	// Reads date_code
+	$('.update_line.js_expiry_date.input-group').each(function(index,element) {
+		if (!isDate($(element).val())){
+			alert('Date is invalid format - Format needs to be yyyy/mm/d');
+			return False;
+			};
+		console.log('Date code');
+		console.log($(element).val());
+		line_expiry_date.push($(element).val());
+		});
+	console.log('Expiry Date');
+	console.log(line_expiry_date);
+
 	// Reads quotation  prices
 	$('.update_line.js_leadtime.input-group').each(function(index,element) {
 		if ( $(element).val() != 'N/A' ) {
@@ -288,6 +302,7 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
                 	'batch_number': line_batch_number,
                 	'tracking_number': line_tracking_number,
                 	'date_code': line_date_code,
+                	'expiry_date': line_expiry_date,
 	                })
         	        .then(function (data) {
 				$(".update_line.js_unitprice.input-group").prop('disabled', true);

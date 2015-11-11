@@ -240,6 +240,7 @@ class purchase_quote(http.Controller):
 				'batch_number': post['batch_number'][i],
 				'tracking_number': post['tracking_number'][i],
 				'date_code': post['date_code'][i],
+				'expiry_date': post['expiry_date'][i],
 				}
 	        line_id=int(line_id)
 
