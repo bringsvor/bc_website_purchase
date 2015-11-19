@@ -159,7 +159,7 @@
             <h1 class="page-header">Related Product Purchase Order <t t-esc="quotation.matching_product_po.name" /></h1>
         </section>
         <section id="quote">
-            <p>The tooling order is to be fullfilled with working gerbers/stepped paste files before release of product order.:</p>
+            <p>The tooling order (<t t-esc="quotation.matching_po.name" />) is to be fullfilled with working gerbers/stepped paste files before release of product order.:The expected delivery date is <t t-esc="quotation.matching_product_po.requested_delivery" /></p>
             <table class="table table-bordered">
                 <thead>
                     <tr>
