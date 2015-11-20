@@ -473,7 +473,7 @@
                       <a id="pricing"/>
                       <t t-call="bc_website_purchase.pricing"/>
 
-                      <t t-if="quotation.tooling_po">
+                      <t t-if="quotation.matching_product_po">
                         <a t-if="quotation.matching_product_po" id="matching_product_po"/>
                         <t t-if="quotation.matching_product_po" t-call="bc_website_purchase.matching_product_po"/>
                       </t>
