@@ -219,16 +219,16 @@ class purchase_quote(http.Controller):
 	
 	for i in range(len(post['line_id'])):	
 		line_id = post['line_id'][i]
-		try:
-			leadtime = post['leadtime'][i]
-		except:
-			leadtime = 0
-			pass
+		#try:
+		#	leadtime = post['leadtime'][i]
+		#except:
+		#	leadtime = 0
+		#	pass
 		if order.state in ('draft','sent'):	
 			price_unit = post['price_unit'][i]
 			vals = {
 				'price_unit': price_unit,
-				'leadtime': leadtime,
+				# 'leadtime': leadtime,
 				}
 		else:
 			vals = {
