@@ -33,6 +33,8 @@
 			      <th class="text-right col-md-2">Weight</th>
 			      <th class="text-right col-md-2">Collies</th>
 			      <th class="text-right col-md-2">Units in Stock</th>
+			      <th class="text-right col-md-1">Lot Week</th>
+			      <th class="text-right col-md-1">Lot Year</th>
 			      <th class="text-right col-md-2">Batch Number</th>
 			      <th class="text-right col-md-2">Tracking Number</th>
 			</div>
@@ -91,6 +93,8 @@
         	              <td class="col-md-2 text-right"><span t-field="line.weight" /> </td>
                 	      <td class="col-md-2 text-right"><span t-field="line.collies" /> </td>
 	                      <td class="col-md-2 text-right"><span t-field="line.units_in_stock" /> </td>
+        	              <td class="col-md-1 text-left"><span t-field="line.lot_week" /> </td>
+        	              <td class="col-md-1 text-year"><span t-field="line.lot_year" /> </td>
         	              <td class="col-md-2 text-right"><span t-field="line.batch_number" /> </td>
         	              <td class="col-md-2 text-right"><span t-field="line.tracking_number" /> </td>
 			</div>
@@ -129,6 +133,16 @@
 					t-att-value="line.units_in_stock"/>
 			      </td>
         	              <td> 
+                                  <input type="text" name="lot_week" class="update_line js_lot_week input-group text-right" 
+					size="4"
+					t-att-value="line.lot_week"/>
+			      </td>
+        	              <td> 
+                                  <input type="text" name="lot_year" class="update_line js_lot_year input-group text-right" 
+					size="4"
+					t-att-value="line.lot_year"/>
+			      </td>
+        	              <td> 
                                   <input type="text" name="batch_number" class="update_line js_batch_number input-group text-right" 
 					size="6"
 					t-att-value="line.batch_number"/>
@@ -154,7 +168,7 @@
       <t t-call="bc_website_purchase.quotation_toolbar"/>
   </template>
 
-    <template id="matching_product_po" name="Related Product Purchase Order">
+    <!-- template id="matching_product_po" name="Related Product Purchase Order">
         <section data-snippet-id="matching_product_po">
             <h1 class="page-header">Related Product Purchase Order <t t-esc="quotation.matching_product_po.name" /></h1>
         </section>
@@ -178,8 +192,6 @@
                                 <span t-field="line.id"/>
                             </td>
                             <td class="col-md-2">
-                                <!-- a t-field="line.product_id.default_code + line.name"
-				 t-attf-href="http://{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/ -->
                                 <a t-esc="line.name"
                                    t-attf-href="{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/>
                             </td>
@@ -207,20 +219,12 @@
 
                         </div>
                     </tr>
-                    <!-- tr>
-                        <td></td><td></td><td></td><td /><td />
-                        <td class="text-right"><strong>Subtotal:</strong></td>
-                        <td class="text-right">
-                            <span data-id="sub_total_amount" t-field="quotation.amount_untaxed" class="subtotal_field"
-                   t-field-options='{"widget": "monetary","display_currency": "quotation.pricelist_id.currency_id"}'/>
-                        </td>
-                    </tr -->
 
                 </tbody>
             </table>
             <p>Product order to be released from Elmatica after Tooling order finalized.</p>
         </section>
-    </template>
+    </template -->
 
 
     <!-- template id="change_quantity" inherit_id="bc_website_purchase.pricing" active="False" customize_show="True" name="Change Quantity">
@@ -473,10 +477,10 @@
                       <a id="pricing"/>
                       <t t-call="bc_website_purchase.pricing"/>
 
-                      <t t-if="quotation.matching_product_po">
+                      <!-- t t-if="quotation.matching_product_po">
                         <a t-if="quotation.matching_product_po" id="matching_product_po"/>
                         <t t-if="quotation.matching_product_po" t-call="bc_website_purchase.matching_product_po"/>
-                      </t>
+                      </t -->
 
                       <a id="discussion"/>
                       <t t-call="bc_website_purchase.chatter"/>

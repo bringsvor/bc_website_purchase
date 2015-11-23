@@ -1,4 +1,5 @@
 from openerp import models, api, fields
+from datetime import date
 
 #class product_template(models.Model):
 #    _inherit = "product.template"
@@ -7,6 +8,21 @@ from openerp import models, api, fields
 
 class purchase_order_line(models.Model):
     _inherit = "purchase.order.line"
+
+    @api.one
+    def _compute_default_lot_year(self):
+	year = date.today().year
+	return year
+
+    @api.one
+    def _compute_assemble_date_code(self):
+	year = str(self.lot_year or 1)
+	if len(year) > 2:
+		year = year[-2:]
+	else:
+		year = year.zfill(2)
+	
+	self.assemble_date_code = str(self.lot_week or 1).zfill(2) + year 
 
     leadtime = fields.Integer('Leadtime', default=10, help='Requested leadtime in days.')
     units_shipped = fields.Integer('Units Shipped', help='Units Shipped',default=0)
@@ -17,6 +33,9 @@ class purchase_order_line(models.Model):
     tracking_number = fields.Char('Tracking Number', help='Batch Number',size=12,default='N/A')
     date_code = fields.Char('Shipping Date', help='Date Code',default='1980/01/01')
     expiry_date = fields.Char('Expiry Date', help='Expiry Date',default='1980/01/01')
+    lot_week = fields.Integer('Lot Week', help='Lot Week',default=1)
+    lot_year = fields.Integer('Lot Year', help='Lot Year',default=_compute_default_lot_year)
+    assemble_date_code = fields.Char('Assemble Date Code', help='Assemble Date Code',readonly=True,compute=_compute_assemble_date_code)
 
 
 class purchase_requisition(models.Model):

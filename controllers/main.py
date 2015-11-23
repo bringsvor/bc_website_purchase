@@ -237,6 +237,8 @@ class purchase_quote(http.Controller):
 				'weight': post['weight'][i],
 				'collies': post['collies'][i],
 				'units_in_stock': post['units_in_stock'][i],
+				'lot_week': post['lot_week'][i],
+				'lot_year': post['lot_year'][i],
 				'batch_number': post['batch_number'][i],
 				'tracking_number': post['tracking_number'][i],
 				'date_code': post['date_code'][i],
