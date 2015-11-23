@@ -199,7 +199,7 @@ class purchase_quote(http.Controller):
 		price_unit = post['price_unit'][i]
 		vals = {
 			'price_unit': price_unit,
-			'leadtime': leadtime,
+			#'leadtime': leadtime,
 			}
 	        line_id=int(line_id)
 
