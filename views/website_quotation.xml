@@ -154,23 +154,92 @@
       <t t-call="bc_website_purchase.quotation_toolbar"/>
   </template>
 
-  <!-- template id="change_quantity" inherit_id="bc_website_purchase.pricing" active="False" customize_show="True" name="Change Quantity">
-      <xpath expr="//div[@id='quote_qty']" position="replace">
-          <div class="input-group oe_website_spinner">
-              <span class="input-group-addon hidden-print">
-                  <a t-attf-href="./update_line/#{ line.id }/?order_id=#{ quotation.id }&amp;remove=True&amp;token=#{ quotation.access_token }" class="mb8 js_update_line_json">
-                      <span class="fa fa-minus"/>
-                  </a>
-              </span>
-              <input type="text" class="js_quantity form-control" t-att-data-id="line.id" t-att-value="line.product_qty"/>
-              <span class="input-group-addon hidden-print">
-                  <a t-attf-href="./update_line/#{ line.id }/?order_id=#{ quotation.id }&amp;token=#{ quotation.access_token }" class="mb8 js_update_line_json">
-                      <span class="fa fa-plus"/>
-                  </a>
-              </span>
-          </div>
-      </xpath>
-  </template -->
+    <template id="matching_product_po" name="Related Product Purchase Order">
+        <section data-snippet-id="matching_product_po">
+            <h1 class="page-header">Related Product Purchase Order <t t-esc="quotation.matching_product_po.name" /></h1>
+        </section>
+        <section id="quote">
+            <p>The tooling order (<t t-esc="quotation.matching_product_po.name" />) is to be fullfilled with working gerbers/stepped paste files before release of product order.:The expected delivery date is <t t-esc="quotation.matching_product_po.requested_delivery" /></p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="columnID">ID</th>
+                        <th class="col-md-2">Products</th>
+                        <th class="col-md-2">Quantity</th>
+                        <th class="col-md-2">Lead time</th>
+                        <th class="text-right col-md-2">Unit Price</th>
+                        <th class="text-right col-md-2">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="quotation.matching_product_po.order_line" t-as="line">
+                        <div t-if="line.is_autoline == False">
+                            <td class="columnID">
+                                <span t-field="line.id"/>
+                            </td>
+                            <td class="col-md-2">
+                                <!-- a t-field="line.product_id.default_code + line.name"
+				 t-attf-href="http://{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/ -->
+                                <a t-esc="line.name"
+                                   t-attf-href="{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/>
+                            </td>
+                            <td class="col-md-2 text-right">
+                                <div id="quote_qty">
+                                    <span class="js_product_qty text-right" t-field="line.product_qty"/>
+                                </div>
+                            </td>
+
+                            <td class="col-md-2 text-right">
+                                <span t-field="line.leadtime"/>
+                            </td>
+                            <td class="col-md-2 text-right">
+                                <span t-field="line.price_unit"/>
+                            </td>
+                            <td t-att-data="line.id" class="col-md-2">
+                                <div class="js_line_subtotal text-right output-group"
+                                     t-field="line.price_subtotal"
+                                     t-att-data="line.id"
+                                     size="4"
+                                     t-field-options='{"widget": "monetary", "display_currency": "quotation.pricelist_id.currency_id",
+						"from_currency": "quotation.pricelist_id.currency_id"}'/>
+                            </td>
+
+
+                        </div>
+                    </tr>
+                    <!-- tr>
+                        <td></td><td></td><td></td><td /><td />
+                        <td class="text-right"><strong>Subtotal:</strong></td>
+                        <td class="text-right">
+                            <span data-id="sub_total_amount" t-field="quotation.amount_untaxed" class="subtotal_field"
+                   t-field-options='{"widget": "monetary","display_currency": "quotation.pricelist_id.currency_id"}'/>
+                        </td>
+                    </tr -->
+
+                </tbody>
+            </table>
+            <p>Product order to be released from Elmatica after Tooling order finalized.</p>
+        </section>
+    </template>
+
+
+    <!-- template id="change_quantity" inherit_id="bc_website_purchase.pricing" active="False" customize_show="True" name="Change Quantity">
+        <xpath expr="//div[@id='quote_qty']" position="replace">
+            <div class="input-group oe_website_spinner">
+                <span class="input-group-addon hidden-print">
+                    <a t-attf-href="./update_line/#{ line.id }/?order_id=#{ quotation.id }&amp;remove=True&amp;token=#{ quotation.access_token }" class="mb8 js_update_line_json">
+                        <span class="fa fa-minus"/>
+                    </a>
+                </span>
+                <input type="text" class="js_quantity form-control" t-att-data-id="line.id" t-att-value="line.product_qty"/>
+                <span class="input-group-addon hidden-print">
+                    <a t-attf-href="./update_line/#{ line.id }/?order_id=#{ quotation.id }&amp;token=#{ quotation.access_token }" class="mb8 js_update_line_json">
+                        <span class="fa fa-plus"/>
+                    </a>
+                </span>
+            </div>
+        </xpath>
+    </template -->
 
   <template id="chatter">
       <h1 class="page-header hidden-print">History</h1>
@@ -403,6 +472,11 @@
 
                       <a id="pricing"/>
                       <t t-call="bc_website_purchase.pricing"/>
+
+                      <t t-if="quotation.matching_product_po">
+                        <a t-if="quotation.matching_product_po" id="matching_product_po"/>
+                        <t t-if="quotation.matching_product_po" t-call="bc_website_purchase.matching_product_po"/>
+                      </t>
 
                       <a id="discussion"/>
                       <t t-call="bc_website_purchase.chatter"/>
