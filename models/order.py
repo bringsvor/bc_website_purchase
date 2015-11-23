@@ -13,9 +13,9 @@ class purchase_order_line(models.Model):
     weight = fields.Float('Weight', help='Weight',default=0)
     collies = fields.Integer('# Collies', help='# Collies',default=0)
     units_in_stock = fields.Integer('Units in Stock', help='Units in Stock',default=0)
-    batch_number = fields.Char('Batch Number', help='Batch Number',size=24,default='N/A')
+    batch_number = fields.Char('Lot Number', help='Batch Number',size=24,default='N/A')
     tracking_number = fields.Char('Tracking Number', help='Batch Number',size=12,default='N/A')
-    date_code = fields.Char('Date Code', help='Date Code',default='1980/01/01')
+    date_code = fields.Char('Shipping Date', help='Date Code',default='1980/01/01')
     expiry_date = fields.Char('Expiry Date', help='Expiry Date',default='1980/01/01')
 
 

@@ -27,7 +27,7 @@
                       <th class="text-right col-md-2">Price</th>
 	      	       <div t-if="quotation.state in ('confirmed ','approved')">
 				<!-- th class="col-md-2" / -->
-                      	      <th class="col-md-1">Date Code</th>
+                      	      <th class="col-md-1">Shipping Date</th>
                       	      <th class="col-md-1">Expiry Date</th>
 			      <th class="text-right col-md-2">Units Shipped</th>
 			      <th class="text-right col-md-2">Weight</th>
