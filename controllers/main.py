@@ -41,6 +41,7 @@ class purchase_quote(http.Controller):
         # use SUPERUSER_ID allow to access/view order for public user
         # only if he knows the private token
         user_obj = request.registry.get('res.users')
+        group_obj = request.registry.get('res.groups')
 	user = user_obj.browse(request.cr,token and SUPERUSER_ID or request.uid, request.uid)
 	
         order_obj = request.registry.get('purchase.order')
@@ -63,14 +64,23 @@ class purchase_quote(http.Controller):
         	       values["redirect"] = "/purchase/%i" % (order_id);
 	               return request.render('web.login', values)
 
-	partner_id = user.partner_id.parent_id.id or user.partner_id.id
-	if partner_id and request.uid != SUPERUSER_ID:
-		if partner_id != order.partner_id.id:
-			return request.website.render('website.404')
-	else:
-		if request.uid != SUPERUSER_ID:
-			return request.website.render('website.404')
-	
+        # Checks groups
+        broker = False
+        # import pdb;pdb.set_trace()
+        for group_id in user.groups_id:
+                group = group_obj.browse(request.cr,token and SUPERUSER_ID or request.uid, group_id.id)
+                if group.name == 'Elmatica Broker':
+                        broker = True
+
+	if not broker:
+		partner_id = user.partner_id.parent_id.id or user.partner_id.id
+		if partner_id and request.uid != SUPERUSER_ID:
+			if partner_id != order.partner_id.id:
+				return request.website.render('website.404')
+		else:
+			if request.uid != SUPERUSER_ID:
+				return request.website.render('website.404')
+		
 	
         if request.session.get('view_quote',False)!=now:
         	request.session['view_quote'] = now

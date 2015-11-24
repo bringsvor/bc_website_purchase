@@ -21,8 +21,11 @@ class purchase_order_line(models.Model):
 		year = year[-2:]
 	else:
 		year = year.zfill(2)
-	
-	self.assemble_date_code = str(self.lot_week or 1).zfill(2) + year 
+	if self.batch_number:
+		batch_number = self.batch_number
+	else:
+		batch_number = 'N/A'
+	self.assemble_date_code = str(self.lot_week or 1).zfill(2) + year + batch_number
 
     leadtime = fields.Integer('Leadtime', default=10, help='Requested leadtime in days.')
     units_shipped = fields.Integer('Units Shipped', help='Units Shipped',default=0)
