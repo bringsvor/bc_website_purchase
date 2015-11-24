@@ -35,7 +35,7 @@
 			      <th class="text-right col-md-2">Units in Stock</th>
 			      <th class="text-right col-md-1">Lot Week</th>
 			      <th class="text-right col-md-1">Lot Year</th>
-			      <th class="text-right col-md-2">Batch Number</th>
+			      <th class="text-right col-md-2">Lot Number</th>
 			      <th class="text-right col-md-2">Tracking Number</th>
 			</div>
                   </tr>
