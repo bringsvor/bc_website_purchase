@@ -11,148 +11,173 @@
     </xpath>
   </template>
 
-  <template id="pricing" name="Price">
-      <section data-snippet-id="title">
-          <h1 class="page-header">Pricing</h1>
-      </section>
-      <section id="quote">
-          <table class="table table-bordered">
-              <thead>
-                  <tr>
-                      <th class="columnID">ID</th>
-                      <th class="col-md-2">Products</th>
-                      <th class="col-md-2">Quantity</th>
-                      <th class="col-md-2">Lead time</th>
-                      <th class="text-right col-md-2">Unit Price</th>
-                      <th class="text-right col-md-2">Price</th>
-	      	       <div t-if="quotation.state in ('confirmed ','approved')">
-				<!-- th class="col-md-2" / -->
-                      	      <th class="col-md-1">Date Code</th>
-                      	      <th class="col-md-1">Expiry Date</th>
-			      <th class="text-right col-md-2">Units Shipped</th>
-			      <th class="text-right col-md-2">Weight</th>
-			      <th class="text-right col-md-2">Collies</th>
-			      <th class="text-right col-md-2">Units in Stock</th>
-			      <th class="text-right col-md-2">Batch Number</th>
-			      <th class="text-right col-md-2">Tracking Number</th>
-			</div>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr t-foreach="quotation.order_line" t-as="line"><div t-if="line.is_autoline == False">
-                      <td class="columnID">
-                          <span t-field="line.id" />
-                      </td>
-                      <td class="col-md-2">
-                          <!-- a t-field="line.product_id.default_code + line.name"
+    <template id="pricing" name="Price">
+        <section data-snippet-id="title">
+            <h1 class="page-header">Pricing</h1>
+        </section>
+        <section id="quote">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="columnID">ID</th>
+                        <th class="col-md-2">Products</th>
+                        <th class="col-md-2">Quantity</th>
+                        <th class="col-md-2">Lead time</th>
+                        <th class="text-right col-md-2">Unit Price</th>
+                        <th class="text-right col-md-2">Price</th>
+                        <div t-if="not quotation.matching_product_po and quotation.state in ('confirmed ','approved')">
+                            <!-- th class="col-md-2" / -->
+                            <th class="col-md-1">Date Code</th>
+                            <th class="col-md-1">Expiry Date</th>
+                            <th class="text-right col-md-2">Units Shipped</th>
+                            <th class="text-right col-md-2">Weight</th>
+                            <th class="text-right col-md-2">Collies</th>
+                            <th class="text-right col-md-2">Units in Stock</th>
+                            <th class="text-right col-md-2">Batch Number</th>
+                            <th class="text-right col-md-2">Tracking Number</th>
+                        </div>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="quotation.order_line" t-as="line">
+                        <div t-if="line.is_autoline == False">
+                            <td class="columnID">
+                                <span t-field="line.id"/>
+                            </td>
+                            <td class="col-md-2">
+                                <!-- a t-field="line.product_id.default_code + line.name"
 				 t-attf-href="http://{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/ -->
-                          <a t-esc="line.name"
-				 t-attf-href="{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/>
-                      </td>
-                      <td  class="col-md-2 text-right">
-                          <div id="quote_qty">
-                              <span class="js_product_qty text-right" t-field="line.product_qty"/>
-                          </div>
-                      </td>
-                      <td class="col-md-2 text-right">
-                              <div class="input-group" style="width:100%" t-if="quotation.state in ('draft','sent','cancel') and line.product_id.product_tmpl_id.type != 'service'">
-                                  <input type="text" name="leadtime" class="update_line js_leadtime input-group" 
-					size="4"
-					t-att-value="line.leadtime"/>
-                              </div>
-				<div t-if="quotation.state not in ('draft','sent','cancel')">	
-					<span t-field="line.leadtime" />
-				</div>
-                      </td>
-                      <td class="col-md-2 text-right">
-			      <div class="input-group" style="width: 100%" t-if="quotation.state in ('draft','sent','cancel')">
-                      		<input type="text" name="price_unit" class="update_line js_unitprice input-group"  
-					t-att-value="line.price_unit" 
-					size="4"
-					t-field-options='{"widget": "monetary",
+                                <a t-esc="line.name"
+                                   t-attf-href="{{ line.product_id.product_tmpl_id.ntty_url }}" target="_blank"/>
+                            </td>
+                            <td class="col-md-2 text-right">
+                                <div id="quote_qty">
+                                    <span class="js_product_qty text-right" t-field="line.product_qty"/>
+                                </div>
+                            </td>
+                            <td class="col-md-2 text-right">
+                                <div class="input-group" style="width:100%"
+                                     t-if="quotation.state in ('draft','sent','cancel') and line.product_id.product_tmpl_id.type != 'service'">
+                                    <input type="text" name="leadtime" class="update_line js_leadtime input-group"
+                                           size="4"
+                                           t-att-value="line.leadtime"/>
+                                </div>
+                                <div t-if="quotation.state not in ('draft','sent','cancel')">
+                                    <span t-field="line.leadtime"/>
+                                </div>
+                            </td>
+                            <td class="col-md-2 text-right">
+                                <div class="input-group" style="width: 100%"
+                                     t-if="quotation.state in ('draft','sent','cancel')">
+                                    <input type="text" name="price_unit" class="update_line js_unitprice input-group"
+                                           t-att-value="line.price_unit"
+                                           size="4"
+                                           t-field-options='{"widget": "monetary",
 					"display_currency": "line.order_id.partner_id.property_product_pricelist.currency_id"}'/>
-                              </div>
-				<div t-if="quotation.state not in ('draft','sent','cancel')">	
-					<span t-field="line.price_unit" />
-				</div>
-                      </td>
-                      <td t-att-data="line.id" class="col-md-2">
-                          <div class="js_line_subtotal text-right output-group"
-                              t-field="line.price_subtotal"
-                              t-att-data="line.id"
-				size="4"
-                              t-field-options='{"widget": "monetary", "display_currency": "quotation.pricelist_id.currency_id",
+                                </div>
+                                <div t-if="quotation.state not in ('draft','sent','cancel')">
+                                    <span t-field="line.price_unit"/>
+                                </div>
+                            </td>
+                            <td t-att-data="line.id" class="col-md-2">
+                                <div class="js_line_subtotal text-right output-group"
+                                     t-field="line.price_subtotal"
+                                     t-att-data="line.id"
+                                     size="4"
+                                     t-field-options='{"widget": "monetary", "display_currency": "quotation.pricelist_id.currency_id",
 						"from_currency": "quotation.pricelist_id.currency_id"}'/>
-                      </td>
-			<div t-if="quotation.state in ('draft','bid-received')">
-	                      <td class="col-md-1 text-right"><span t-field="line.date_code" /> </td>
-	                      <td class="col-md-1 text-right"><span t-field="line.expiry_date" /> </td>
-	                      <td class="col-md-2 text-right"><span t-field="line.units_shipped" /> </td>
-        	              <td class="col-md-2 text-right"><span t-field="line.weight" /> </td>
-                	      <td class="col-md-2 text-right"><span t-field="line.collies" /> </td>
-	                      <td class="col-md-2 text-right"><span t-field="line.units_in_stock" /> </td>
-        	              <td class="col-md-2 text-right"><span t-field="line.batch_number" /> </td>
-        	              <td class="col-md-2 text-right"><span t-field="line.tracking_number" /> </td>
-			</div>
-			<div t-if="quotation.state in ('confirmed','approved')">
-	                      <td>
-                                  <input type="text" name="date_code" 
-					class="update_line js_date_code input-group text-left" 
-					size="8"
-					t-att-value="line.date_code"/>
-			      </td>
-	                      <td>
-                                  <input type="text" name="expiry_date" 
-					class="update_line js_expiry_date input-group text-left" 
-					size="8"
-					t-att-value="line.expiry_date"/>
-			      </td>
-	                      <td>
-                                  <input type="text" name="units_shipped" 
-					class="update_line js_units_shipped input-group text-right" 
-					size="4"
-					t-att-value="line.units_shipped"/>
-			      </td>
-        	              <td> 
-                                  <input type="text" name="weight" class="update_line js_weight input-group text-right" 
-					size="4"
-					t-att-value="line.weight"/>
-			      </td>
-        	              <td> 
-                                  <input type="text" name="collies" class="update_line js_collies input-group text-right" 
-					size="4"
-					t-att-value="line.collies"/>
-			      </td>
-        	              <td> 
-                                  <input type="text" name="units_in_stock" class="update_line js_units_in_stock input-group text-right" 
-					size="4"
-					t-att-value="line.units_in_stock"/>
-			      </td>
-        	              <td> 
-                                  <input type="text" name="batch_number" class="update_line js_batch_number input-group text-right" 
-					size="6"
-					t-att-value="line.batch_number"/>
-			      </td>
-        	              <td> 
-                                  <input type="text" name="tracking_number" class="update_line js_tracking_number input-group text-right" 
-					size="6"
-					t-att-value="line.tracking_number"/>
-			      </td>
-			</div>
-                  </div></tr>
-                  <!-- tr>
-                      <td></td><td></td><td></td><td /><td />
-                      <td class="text-right"><strong>Subtotal:</strong></td>
-                      <td class="text-right">
-                          <span data-id="sub_total_amount" t-field="quotation.amount_untaxed" class="subtotal_field"
-				 t-field-options='{"widget": "monetary","display_currency": "quotation.pricelist_id.currency_id"}'/>
-                      </td>
-                  </tr -->
-              </tbody>
-          </table>
-      </section>
-      <t t-call="bc_website_purchase.quotation_toolbar"/>
-  </template>
+                            </td>
+                            <div t-if="not quotation.matching_product_po and quotation.state in ('draft','bid-received')">
+                                <td class="col-md-1 text-right">
+                                    <span t-field="line.date_code"/>
+                                </td>
+                                <td class="col-md-1 text-right">
+                                    <span t-field="line.expiry_date"/>
+                                </td>
+                                <td class="col-md-2 text-right">
+                                    <span t-field="line.units_shipped"/>
+                                </td>
+                                <td class="col-md-2 text-right">
+                                    <span t-field="line.weight"/>
+                                </td>
+                                <td class="col-md-2 text-right">
+                                    <span t-field="line.collies"/>
+                                </td>
+                                <td class="col-md-2 text-right">
+                                    <span t-field="line.units_in_stock"/>
+                                </td>
+                                <td class="col-md-2 text-right">
+                                    <span t-field="line.batch_number"/>
+                                </td>
+                                <td class="col-md-2 text-right">
+                                    <span t-field="line.tracking_number"/>
+                                </td>
+                            </div>
+                            <div t-if="not quotation.matching_product_po and quotation.state in ('confirmed','approved')">
+                                <td>
+                                    <input type="text" name="date_code"
+                                           class="update_line js_date_code input-group text-left"
+                                           size="8"
+                                           t-att-value="line.date_code"/>
+                                </td>
+                                <td>
+                                    <input type="text" name="expiry_date"
+                                           class="update_line js_expiry_date input-group text-left"
+                                           size="8"
+                                           t-att-value="line.expiry_date"/>
+                                </td>
+                                <td>
+                                    <input type="text" name="units_shipped"
+                                           class="update_line js_units_shipped input-group text-right"
+                                           size="4"
+                                           t-att-value="line.units_shipped"/>
+                                </td>
+                                <td>
+                                    <input type="text" name="weight"
+                                           class="update_line js_weight input-group text-right"
+                                           size="4"
+                                           t-att-value="line.weight"/>
+                                </td>
+                                <td>
+                                    <input type="text" name="collies"
+                                           class="update_line js_collies input-group text-right"
+                                           size="4"
+                                           t-att-value="line.collies"/>
+                                </td>
+                                <td>
+                                    <input type="text" name="units_in_stock"
+                                           class="update_line js_units_in_stock input-group text-right"
+                                           size="4"
+                                           t-att-value="line.units_in_stock"/>
+                                </td>
+                                <td>
+                                    <input type="text" name="batch_number"
+                                           class="update_line js_batch_number input-group text-right"
+                                           size="6"
+                                           t-att-value="line.batch_number"/>
+                                </td>
+                                <td>
+                                    <input type="text" name="tracking_number"
+                                           class="update_line js_tracking_number input-group text-right"
+                                           size="6"
+                                           t-att-value="line.tracking_number"/>
+                                </td>
+                            </div>
+                        </div>
+                    </tr>
+                    <!-- tr>
+                        <td></td><td></td><td></td><td /><td />
+                        <td class="text-right"><strong>Subtotal:</strong></td>
+                        <td class="text-right">
+                            <span data-id="sub_total_amount" t-field="quotation.amount_untaxed" class="subtotal_field"
+                   t-field-options='{"widget": "monetary","display_currency": "quotation.pricelist_id.currency_id"}'/>
+                        </td>
+                    </tr -->
+                </tbody>
+            </table>
+        </section>
+        <t t-call="bc_website_purchase.quotation_toolbar"/>
+    </template>
 
     <template id="matching_product_po" name="Related Product Purchase Order">
         <section data-snippet-id="matching_product_po">
