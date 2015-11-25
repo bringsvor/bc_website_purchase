@@ -413,6 +413,7 @@
                           <em t-esc="quotation.name"/>
                           <small id="bc_website_purchase_po_state" t-field="quotation.state" />
                       </h1>
+                      <h2 t-if="quotation.partner_id"><t t-esc="quotation.partner_id.name" /></h2>
 
                       <div class="modal fade" id="modelaccept" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
