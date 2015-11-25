@@ -416,9 +416,9 @@
 
                       <div class="modal fade" id="modelaccept" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
-                          <!-- form id="accept" method="POST" t-attf-action="/purchase/accept/#{quotation.id}/?token=#{quotation.access_token}" 
+                          <!-- form id="accept" method="POST" t-attf-action="/purchase/accept/#{quotation.id}/?token=#{quotation.access_token}"
 				class="js_accept_json modal-content" -->
-                          <form id="accept" method="POST" t-attf-action="/purchase/#{quotation.id}/#{quotation.access_token}/accept" 
+                          <form id="accept" method="POST" t-attf-action="/purchase/#{quotation.id}/#{quotation.access_token}/accept"
 				class="js_accept_json modal-content">
                             <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
@@ -459,7 +459,7 @@
 
                       <div class="modal fade" id="modeldecline" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
-                          <form id="decline" method="POST" t-attf-action="/purchase/#{quotation.id}/#{quotation.access_token}/decline" 
+                          <form id="decline" method="POST" t-attf-action="/purchase/#{quotation.id}/#{quotation.access_token}/decline"
 				class="modal-content">
                             <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>

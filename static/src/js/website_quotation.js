@@ -106,6 +106,24 @@ $(".update_line.js_units_in_stock.input-group").each(function(index,element) {
 	//	formChanged = false;
 	//	}
 });
+$(".update_line.js_lot_week.input-group").each(function(index,element) {
+	$(element).numericInput({
+		allowFloat: false, // Accpets positive numbers (floating point)
+		allowNegative: false // Accpets positive or negative integer
+	});
+        //if ( !($(element).val())){
+	//	formChanged = false;
+	//	}
+});
+$(".update_line.js_lot_year.input-group").each(function(index,element) {
+	$(element).numericInput({
+		allowFloat: false, // Accpets positive numbers (floating point)
+		allowNegative: false // Accpets positive or negative integer
+	});
+        //if ( !($(element).val())){
+	//	formChanged = false;
+	//	}
+});
 
 $(".update_line.js_leadtime.input-group").each(function(index,element) {
         var control_var = isNaN($(element).val());
@@ -177,6 +195,8 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 	var line_weight = [];
 	var line_collies = [];
 	var line_units_in_stock = [];
+	var line_lot_week = [];
+	var line_lot_year = [];
 	var line_batch_number = [];
 	var line_tracking_number = [];
 	var line_date_code = [];
@@ -223,6 +243,23 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
 		line_units_in_stock.push(parseFloat($(element).val()));
 		});
 	console.log(line_units_in_stock);
+
+	// Reads lot_week 
+	$('.update_line.js_lot_week.input-group').each(function(index,element) {
+		if (parseInt($(element).val()) > 52 || parseInt($(element).val()) < 1){
+			alert('Lot week is invalid. Should be between 1 and 52');
+			return False;
+			};
+		 
+		line_lot_week.push(parseFloat($(element).val()));
+		});
+	console.log(line_lot_week);
+
+	// Reads lot_year
+	$('.update_line.js_lot_year.input-group').each(function(index,element) {
+		line_lot_year.push(parseFloat($(element).val()));
+		});
+	console.log(line_lot_year);
 
 	// Reads batch_number
 	$('.update_line.js_batch_number.input-group').each(function(index,element) {
@@ -299,6 +336,8 @@ website.if_dom_contains('div.o_bc_website_purchase', function () {
                 	'weight': line_weight,
                 	'collies': line_collies,
                 	'units_in_stock': line_units_in_stock,
+                	'lot_week': line_lot_week,
+                	'lot_year': line_lot_year,
                 	'batch_number': line_batch_number,
                 	'tracking_number': line_tracking_number,
                 	'date_code': line_date_code,
