@@ -27,12 +27,14 @@
                         <th class="text-right col-md-2">Price</th>
                         <div t-if="not quotation.matching_product_po and quotation.state in ('confirmed ','approved')">
                             <!-- th class="col-md-2" / -->
-                            <th class="col-md-1">Date Code</th>
+                            <th class="col-md-1">Shipping Date</th>
                             <th class="col-md-1">Expiry Date</th>
                             <th class="text-right col-md-2">Units Shipped</th>
                             <th class="text-right col-md-2">Weight</th>
                             <th class="text-right col-md-2">Collies</th>
                             <th class="text-right col-md-2">Units in Stock</th>
+                            <th class="text-right col-md-2">Lot week</th>
+                            <th class="text-right col-md-2">Lot year</th>
                             <th class="text-right col-md-2">Batch Number</th>
                             <th class="text-right col-md-2">Tracking Number</th>
                         </div>
@@ -106,6 +108,12 @@
                                 <td class="col-md-2 text-right">
                                     <span t-field="line.units_in_stock"/>
                                 </td>
+                                <td class="col-md-2 text-right">
+					<span t-field="line.lot_week"/>
+				</td>
+				<td class="col-md-2 text-right">
+					<span t-field="line.lot_year"/>
+				</td>
                                 <td class="col-md-2 text-right">
                                     <span t-field="line.batch_number"/>
                                 </td>
