@@ -158,6 +158,21 @@
                                            size="4"
                                            t-att-value="line.units_in_stock"/>
                                 </td>
+
+                                <td>
+                                    <input type="text" name="lot_week"
+                                           class="update_line js_lot_week input-group text-right"
+                                           size="6"
+                                           t-att-value="line.lot_week"/>
+                                </td>
+
+                                <td>
+                                    <input type="text" name="lot_year"
+                                           class="update_line js_lot_year input-group text-right"
+                                           size="6"
+                                           t-att-value="line.lot_year"/>
+                                </td>
+
                                 <td>
                                     <input type="text" name="batch_number"
                                            class="update_line js_batch_number input-group text-right"
