@@ -17,9 +17,9 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[@string='Products']//tree/field[@name='date_planned']" position="after">
+                <!-- xpath expr="//page[@string='Products']//tree/field[@name='date_planned']" position="after">
                     <field name="leadtime" />
-                </xpath>
+                </xpath -->
                 <xpath expr="//page[@string='Products']//tree/field[@name='date_planned']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>

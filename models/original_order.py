@@ -101,6 +101,7 @@ class purchase_order_line(osv.osv):
     _description = "purchases Order Line"
 
     _columns = {
+        'leadtime': fields.integer('Leadtime'),
         'website_description': fields.html('Line Description'),
         'option_line_id': fields.one2many('purchase.order.option', 'line_id', 'Optional Products Lines'),
     }

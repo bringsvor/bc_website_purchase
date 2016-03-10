@@ -7,7 +7,8 @@ GURBA
 =========================
 
         """,
-    'depends': ['website', 'mail', 'purchase', 'purchase_requisition','product','bc_supplier_certification','elmatica_utils'],
+    #'depends': ['website', 'mail', 'purchase', 'purchase_requisition','product','bc_supplier_certification','elmatica_utils'],
+    'depends': ['website', 'mail', 'purchase', 'purchase_requisition','product','bc_supplier_certification'],
     'data': [
         'wizards/request_relevant_suppliers.xml',
         'views/website_quotation.xml',
