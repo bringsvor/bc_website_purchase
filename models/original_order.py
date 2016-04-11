@@ -106,15 +106,25 @@ class purchase_order_line(osv.osv):
         'option_line_id': fields.one2many('purchase.order.option', 'line_id', 'Optional Products Lines'),
     }
 
+"""
     def _inject_quote_description(self, cr, uid, values, context=None):
         values = dict(values or {})
         if not values.get('website_description') and values.get('product_id'):
-            product = self.pool['product.product'].browse(cr, uid, values['product_id'], context=context)
-            values['website_description'] = product.quote_description or product.website_description
+	    if type(values['product_id']) == int:
+	            product = self.pool['product.product'].browse(cr, uid, values['product_id'], context=context)
+	    else:
+		    product_id = values['product_id'].id
+	            product = self.pool['product.product'].browse(cr, uid, product_id, context=context)
+	    if product.website_description:
+	            values['website_description'] = product.quote_description or product.website_description
+	    else:
+	            values['website_description'] = product.quote_description or ''
         return values
 
     def create(self, cr, uid, values, context=None):
         values = self._inject_quote_description(cr, uid, values, context)
+        if type(values['product_id']) != int:
+	    values['product_id'] = values['product_id'].id
         ret = super(purchase_order_line, self).create(cr, uid, values, context=context)
         # hack because create don t make the job for a related field
 	if values.get('delay') == False:
@@ -126,7 +136,7 @@ class purchase_order_line(osv.osv):
     def write(self, cr, uid, ids, values, context=None):
         values = self._inject_quote_description(cr, uid, values, context)
         return super(purchase_order_line, self).write(cr, uid, ids, values, context=context)
-
+"""
 
 class purchase_order(osv.osv):
     _inherit = 'purchase.order'
